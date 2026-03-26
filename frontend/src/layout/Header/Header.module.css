@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 120px;
+  background-color: var(--background-secondary);
+}
+
+.buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.loginButton,
+.regButton {
+  background: transparent;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 16px;
+}
+
+.loginButton {
+  border: 2px solid var(--yellow-color);
+}
+
+.regButton {
+  border: 2px solid var(--orange-color);
+}
