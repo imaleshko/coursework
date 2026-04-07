@@ -50,12 +50,23 @@ public class Fundraising {
     @Column(name = "images", nullable = false)
     private List<String> images;
 
-//    private Status status;
-//    private List<Donation> donations;
-//    private List<Update> updates;
+    @Enumerated(EnumType.STRING)
+    private FundraisingStatus status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    public Fundraising(Long id, String title, String slug, String description, BigDecimal balance, BigDecimal goal, LocalDateTime startedAt, LocalDateTime endedAt, LocalDateTime updatedAt, LocalDate endData, List<String> images) {
+    @OneToMany(mappedBy = "fundraising", cascade = CascadeType.ALL)
+    private List<Donation> donations;
+
+    @OneToMany(mappedBy = "fundraising", cascade = CascadeType.ALL)
+    private List<FundraisingUpdate> updates;
+
+    public Fundraising() {
+    }
+
+    public Fundraising(Long id, String title, String slug, String description, BigDecimal balance, BigDecimal goal, LocalDateTime startedAt, LocalDateTime endedAt, LocalDateTime updatedAt, LocalDate endDate, List<String> images, FundraisingStatus status, User user, List<Donation> donations, List<FundraisingUpdate> updates) {
         this.id = id;
         this.title = title;
         this.slug = slug;
@@ -65,11 +76,12 @@ public class Fundraising {
         this.startedAt = startedAt;
         this.endedAt = endedAt;
         this.updatedAt = updatedAt;
-        this.endData = endData;
+        this.endDate = endDate;
         this.images = images;
-    }
-
-    public Fundraising() {
+        this.status = status;
+        this.user = user;
+        this.donations = donations;
+        this.updates = updates;
     }
 
     public Long getId() {
@@ -144,12 +156,12 @@ public class Fundraising {
         this.updatedAt = updatedAt;
     }
 
-    public LocalDate getEndData() {
-        return endData;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setEndData(LocalDate endData) {
-        this.endData = endData;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public List<String> getImages() {
@@ -158,5 +170,37 @@ public class Fundraising {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public FundraisingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(FundraisingStatus status) {
+        this.status = status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Donation> getDonations() {
+        return donations;
+    }
+
+    public void setDonations(List<Donation> donations) {
+        this.donations = donations;
+    }
+
+    public List<FundraisingUpdate> getUpdates() {
+        return updates;
+    }
+
+    public void setUpdates(List<FundraisingUpdate> updates) {
+        this.updates = updates;
     }
 }
