@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "donations")
-public class Donation {
+public class DonationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,16 +28,16 @@ public class Donation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fundraising_id", nullable = false)
-    private Fundraising fundraising;
+    private FundraisingEntity fundraising;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity user;
 
-    public Donation() {
+    public DonationEntity() {
     }
 
-    public Donation(Long id, String name, LocalDateTime createdAt, String message, BigDecimal amount, Fundraising fundraising, User user) {
+    public DonationEntity(Long id, String name, LocalDateTime createdAt, String message, BigDecimal amount, FundraisingEntity fundraising, UserEntity user) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -87,19 +87,19 @@ public class Donation {
         this.amount = amount;
     }
 
-    public Fundraising getFundraising() {
+    public FundraisingEntity getFundraising() {
         return fundraising;
     }
 
-    public void setFundraising(Fundraising fundraising) {
-        this.fundraising = fundraising;
+    public void setFundraising(FundraisingEntity fundraisingEntity) {
+        this.fundraising = fundraisingEntity;
     }
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserEntity userEntity) {
+        this.user = userEntity;
     }
 }

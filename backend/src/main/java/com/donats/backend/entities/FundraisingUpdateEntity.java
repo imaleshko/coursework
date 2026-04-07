@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "fundraising_updates")
-public class FundraisingUpdate {
+public class FundraisingUpdateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,15 +18,15 @@ public class FundraisingUpdate {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fundraising_id", nullable = false)
-    private Fundraising fundraising;
+    private FundraisingEntity fundraising;
 
     @Column(name = "message", nullable = false, columnDefinition = "TEXT")
     private String message;
 
-    public FundraisingUpdate() {
+    public FundraisingUpdateEntity() {
     }
 
-    public FundraisingUpdate(Long id, LocalDateTime createdAt, Fundraising fundraising, String message) {
+    public FundraisingUpdateEntity(Long id, LocalDateTime createdAt, FundraisingEntity fundraising, String message) {
         this.id = id;
         this.createdAt = createdAt;
         this.fundraising = fundraising;
@@ -49,12 +49,12 @@ public class FundraisingUpdate {
         this.createdAt = createdAt;
     }
 
-    public Fundraising getFundraising() {
+    public FundraisingEntity getFundraising() {
         return fundraising;
     }
 
-    public void setFundraising(Fundraising fundraising) {
-        this.fundraising = fundraising;
+    public void setFundraising(FundraisingEntity fundraisingEntity) {
+        this.fundraising = fundraisingEntity;
     }
 
     public String getMessage() {

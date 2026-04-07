@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "fundraising", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "slug" }) })
-public class Fundraising {
+@Table(name = "fundraisings", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "slug" }) })
+public class FundraisingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -55,18 +55,18 @@ public class Fundraising {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserEntity user;
 
     @OneToMany(mappedBy = "fundraising", cascade = CascadeType.ALL)
-    private List<Donation> donations;
+    private List<DonationEntity> donations;
 
     @OneToMany(mappedBy = "fundraising", cascade = CascadeType.ALL)
-    private List<FundraisingUpdate> updates;
+    private List<FundraisingUpdateEntity> updates;
 
-    public Fundraising() {
+    public FundraisingEntity() {
     }
 
-    public Fundraising(Long id, String title, String slug, String description, BigDecimal balance, BigDecimal goal, LocalDateTime startedAt, LocalDateTime endedAt, LocalDateTime updatedAt, LocalDate endDate, List<String> imagesUrl, FundraisingStatus status, User user, List<Donation> donations, List<FundraisingUpdate> updates) {
+    public FundraisingEntity(Long id, String title, String slug, String description, BigDecimal balance, BigDecimal goal, LocalDateTime startedAt, LocalDateTime endedAt, LocalDateTime updatedAt, LocalDate endDate, List<String> imagesUrl, FundraisingStatus status, UserEntity userEntity, List<DonationEntity> donations, List<FundraisingUpdateEntity> updates) {
         this.id = id;
         this.title = title;
         this.slug = slug;
@@ -79,7 +79,7 @@ public class Fundraising {
         this.endDate = endDate;
         this.imagesUrl = imagesUrl;
         this.status = status;
-        this.user = user;
+        this.user = userEntity;
         this.donations = donations;
         this.updates = updates;
     }
@@ -180,27 +180,27 @@ public class Fundraising {
         this.status = status;
     }
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserEntity userEntity) {
+        this.user = userEntity;
     }
 
-    public List<Donation> getDonations() {
+    public List<DonationEntity> getDonations() {
         return donations;
     }
 
-    public void setDonations(List<Donation> donations) {
+    public void setDonations(List<DonationEntity> donations) {
         this.donations = donations;
     }
 
-    public List<FundraisingUpdate> getUpdates() {
+    public List<FundraisingUpdateEntity> getUpdates() {
         return updates;
     }
 
-    public void setUpdates(List<FundraisingUpdate> updates) {
+    public void setUpdates(List<FundraisingUpdateEntity> updates) {
         this.updates = updates;
     }
 }

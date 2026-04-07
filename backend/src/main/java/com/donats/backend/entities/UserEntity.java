@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,24 +23,24 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Fundraising> fundraising;
+    private List<FundraisingEntity> fundraisings;
 
     @OneToMany(mappedBy = "user") // ми не можемо видалити зроблений донат
-    private List<Donation> donations;
+    private List<DonationEntity> donations;
 
     @CreationTimestamp
     @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public User() {
+    public UserEntity() {
     }
 
-    public User(Long id, String userName, String password, String email, List<Fundraising> fundraising, List<Donation> donations, LocalDateTime createdAt) {
+    public UserEntity(Long id, String userName, String password, String email, List<FundraisingEntity> fundraisings, List<DonationEntity> donations, LocalDateTime createdAt) {
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.email = email;
-        this.fundraising = fundraising;
+        this.fundraisings = fundraisings;
         this.donations = donations;
         this.createdAt = createdAt;
     }
@@ -77,19 +77,19 @@ public class User {
         this.email = email;
     }
 
-    public List<Fundraising> getFundraising() {
-        return fundraising;
+    public List<FundraisingEntity> getFundraisings() {
+        return fundraisings;
     }
 
-    public void setFundraising(List<Fundraising> fundraising) {
-        this.fundraising = fundraising;
+    public void setFundraisings(List<FundraisingEntity> fundraisingEntity) {
+        this.fundraisings = fundraisingEntity;
     }
 
-    public List<Donation> getDonations() {
+    public List<DonationEntity> getDonations() {
         return donations;
     }
 
-    public void setDonations(List<Donation> donations) {
+    public void setDonations(List<DonationEntity> donations) {
         this.donations = donations;
     }
 
