@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "fundraising")
 public class Fundraising {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "title", nullable = false)
@@ -47,8 +47,8 @@ public class Fundraising {
 
     @ElementCollection
     @CollectionTable(name = "fundraising_images", joinColumns = @JoinColumn(name = "fundraising_id"))
-    @Column(name = "images", nullable = false)
-    private List<String> images;
+    @Column(name = "imagesUrl", nullable = false)
+    private List<String> imagesUrl;
 
     @Enumerated(EnumType.STRING)
     private FundraisingStatus status;
@@ -66,7 +66,7 @@ public class Fundraising {
     public Fundraising() {
     }
 
-    public Fundraising(Long id, String title, String slug, String description, BigDecimal balance, BigDecimal goal, LocalDateTime startedAt, LocalDateTime endedAt, LocalDateTime updatedAt, LocalDate endDate, List<String> images, FundraisingStatus status, User user, List<Donation> donations, List<FundraisingUpdate> updates) {
+    public Fundraising(Long id, String title, String slug, String description, BigDecimal balance, BigDecimal goal, LocalDateTime startedAt, LocalDateTime endedAt, LocalDateTime updatedAt, LocalDate endDate, List<String> imagesUrl, FundraisingStatus status, User user, List<Donation> donations, List<FundraisingUpdate> updates) {
         this.id = id;
         this.title = title;
         this.slug = slug;
@@ -77,7 +77,7 @@ public class Fundraising {
         this.endedAt = endedAt;
         this.updatedAt = updatedAt;
         this.endDate = endDate;
-        this.images = images;
+        this.imagesUrl = imagesUrl;
         this.status = status;
         this.user = user;
         this.donations = donations;
@@ -164,12 +164,12 @@ public class Fundraising {
         this.endDate = endDate;
     }
 
-    public List<String> getImages() {
-        return images;
+    public List<String> getImagesUrl() {
+        return imagesUrl;
     }
 
-    public void setImages(List<String> images) {
-        this.images = images;
+    public void setImagesUrl(List<String> images) {
+        this.imagesUrl = images;
     }
 
     public FundraisingStatus getStatus() {
