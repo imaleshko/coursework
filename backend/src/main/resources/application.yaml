@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/donation_platform
+    username: admin
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
