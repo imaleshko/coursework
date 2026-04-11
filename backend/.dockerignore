@@ -1,0 +1,24 @@
+# Maven build artifacts
+target
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# IDE configuration
+.idea
+
+# Documentation
+*.md
+
+# Maven wrapper jar (downloaded during build)
+.mvn/wrapper/maven-wrapper.jar
+
+# Local environment configuration
+src/main/resources/application-local.yaml
+
+# Docker and compose files
+compose.yaml
+Dockerfile
+.dockerignore
