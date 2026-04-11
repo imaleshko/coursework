@@ -1,6 +1,6 @@
 import styles from "./Home.module.css";
 import { useState } from "react";
-import { Card } from "@/components/Home/Card/Card";
+import Top5Newest from "@/components/Home/Top5Newest/Top5Newest.tsx";
 
 export const Home = () => {
   const [search, setSearch] = useState("");
@@ -19,11 +19,7 @@ export const Home = () => {
       </div>
       <p className={styles.text2}>або переглянь нові</p>
 
-      <div className={styles.cards}>
-        <Card />
-        <Card />
-        <Card />
-      </div>
+      <Top5Newest />
     </div>
   );
 };
