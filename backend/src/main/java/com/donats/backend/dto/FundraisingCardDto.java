@@ -2,12 +2,12 @@ package com.donats.backend.dto;
 
 import java.math.BigDecimal;
 
-public record FundraisingCardDto (
+public record FundraisingCardDto(
         Long id,
         String title,
-        String authorName,
+        String author,
         BigDecimal balance,
         BigDecimal goal,
         String slug
-        ) {
+) {
 }
