@@ -16,13 +16,13 @@ public class FundraisingService {
         this.fundraisingRepository = fundraisingRepository;
     }
 
-    public List<FundraisingCardDto> get5Newest () {
+    public List<FundraisingCardDto> get5Newest() {
         return fundraisingRepository.findTop5ByStatusOrderByStartedAtDesc(FundraisingStatus.ACTIVE)
                 .stream()
                 .map(entity -> new FundraisingCardDto(
                         entity.getId(),
                         entity.getTitle(),
-                        entity.getUser().getUserName(),
+                        entity.getUser().getUsername(),
                         entity.getBalance(),
                         entity.getGoal(),
                         entity.getSlug()

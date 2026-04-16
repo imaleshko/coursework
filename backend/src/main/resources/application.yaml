@@ -17,3 +17,8 @@ server:
 
 cors:
   allowed-origins: ${CORS_ALLOWED_ORIGIN}
+
+jwt:
+  secretKey: thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd
+  expiration: 3600000
+  refreshExpiration: 2592000000
