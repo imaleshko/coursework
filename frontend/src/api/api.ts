@@ -4,4 +4,51 @@ const baseURL =
 
 export const api = axios.create({
   baseURL,
+  withCredentials: true,
 });
+
+let accessToken: string | null = null;
+
+export const setAccessToken = (token: string | null) => {
+  accessToken = token;
+};
+
+api.interceptors.request.use((config) => {
+  if (accessToken) {
+    config.headers = config.headers || {};
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url?.includes("/auth/refresh") &&
+      !originalRequest.url?.includes("/auth/login") &&
+      !originalRequest.url?.includes("/auth/register")
+    ) {
+      originalRequest._retry = true;
+
+      try {
+        const response = await api.post("/auth/refresh");
+
+        const newAccessToken = response.data.accessToken;
+        setAccessToken(newAccessToken);
+
+        originalRequest.headers = originalRequest.headers || {};
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return api(originalRequest);
+      } catch (refreshError) {
+        setAccessToken(null);
+        return Promise.reject(refreshError);
+      }
+    }
+    return Promise.reject(error);
+  },
+);

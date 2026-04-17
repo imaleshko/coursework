@@ -1,8 +1,5 @@
-package com.donats.backend.controllers;
+package com.donats.backend.fundraising.cards;
 
-import com.donats.backend.dto.FundraisingCardDto;
-import com.donats.backend.entities.FundraisingEntity;
-import com.donats.backend.services.FundraisingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/fundraising")
-public class FundraisingController {
+public class FundraisingCardsController {
 
-    private final FundraisingService fundraisingService;
+    private final FundraisingCardsService fundraisingService;
 
-    public FundraisingController(FundraisingService fundraisingService) {
+    public FundraisingCardsController(FundraisingCardsService fundraisingService) {
         this.fundraisingService = fundraisingService;
     }
 

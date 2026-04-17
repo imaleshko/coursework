@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface FundraisingRepository extends JpaRepository<FundraisingEntity, Long> {
-    Optional<FundraisingEntity> findByUserUserNameAndSlug(String userName, String slug);
+    Optional<FundraisingEntity> findByUserUsernameAndSlug(String username, String slug);
 
     @EntityGraph(attributePaths = {"user"})
     List<FundraisingEntity> findTop5ByStatusOrderByStartedAtDesc(FundraisingStatus status);

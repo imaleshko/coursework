@@ -1,4 +1,4 @@
-package com.donats.backend.dto;
+package com.donats.backend.fundraising.cards;
 
 import java.math.BigDecimal;
 
