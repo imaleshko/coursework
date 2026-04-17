@@ -1,8 +1,9 @@
-package com.donats.backend.services;
+package com.donats.backend.security;
 
 import com.donats.backend.entities.RefreshTokenEntity;
+import com.donats.backend.entities.UserEntity;
 import com.donats.backend.repositories.RefreshTokenRepository;
-import com.donats.backend.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,26 +15,25 @@ import java.util.UUID;
 public class RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
-    private final UserRepository userRepository;
+    private final long refreshTokenExpiration;
 
-    public RefreshTokenService(RefreshTokenRepository refreshTokenRepository, UserRepository userRepository) {
+    public RefreshTokenService(RefreshTokenRepository refreshTokenRepository,
+                               @Value("${jwt.refreshExpiration}") long refreshTokenExpiration) {
         this.refreshTokenRepository = refreshTokenRepository;
-        this.userRepository = userRepository;
+        this.refreshTokenExpiration = refreshTokenExpiration;
     }
 
-    public RefreshTokenEntity createRefreshToken(Long userId) {
+    @Transactional
+    public RefreshTokenEntity createRefreshToken(UserEntity user) {
         RefreshTokenEntity refreshToken = new RefreshTokenEntity();
-
-        refreshToken.setUser(userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found")));
-
+        refreshToken.setUser(user);
         refreshToken.setToken(UUID.randomUUID().toString());
-        long refreshTokenDuration = 30L * 24 * 60 * 60 * 1000;
-        refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenDuration));
+        refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenExpiration));
 
         return refreshTokenRepository.save(refreshToken);
     }
 
+    @Transactional(readOnly = true)
     public Optional<RefreshTokenEntity> findByToken(String token) {
         return refreshTokenRepository.findByToken(token);
     }
@@ -46,5 +46,4 @@ public class RefreshTokenService {
     public void deleteByToken(String token) {
         refreshTokenRepository.deleteByToken(token);
     }
-
 }

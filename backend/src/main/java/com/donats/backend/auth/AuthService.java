@@ -6,9 +6,13 @@ import com.donats.backend.auth.dto.TokensDto;
 import com.donats.backend.auth.dto.UserProfileDto;
 import com.donats.backend.entities.RefreshTokenEntity;
 import com.donats.backend.entities.UserEntity;
+import com.donats.backend.exceptions.InvalidTokenException;
+import com.donats.backend.exceptions.TokenExpiredException;
+import com.donats.backend.exceptions.UserAlreadyExistsException;
+import com.donats.backend.exceptions.UserNotFoundException;
 import com.donats.backend.repositories.UserRepository;
-import com.donats.backend.services.AccessTokenService;
-import com.donats.backend.services.RefreshTokenService;
+import com.donats.backend.security.AccessTokenService;
+import com.donats.backend.security.RefreshTokenService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +38,7 @@ public class AuthService {
     public TokensDto register(RegisterRequest request) {
         if (userRepository.existsByEmailOrUsername(request.email(), request.username())
         ) {
-            throw new RuntimeException("User already exists");
+            throw new UserAlreadyExistsException("Користувач з таким email або ім'ям вже існує");
         }
 
         UserEntity user = new UserEntity();
@@ -43,10 +47,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.password()));
         UserEntity savedUser = userRepository.save(user);
 
-        String accessToken = accessTokenService.generateAccessToken(savedUser.getEmail());
-        RefreshTokenEntity refreshToken = refreshTokenService.createRefreshToken(savedUser.getId());
-
-        return new TokensDto(accessToken, refreshToken.getToken());
+        return generateTokensForUser(savedUser);
     }
 
     public TokensDto login(LoginRequest request) {
@@ -55,31 +56,25 @@ public class AuthService {
         );
 
         UserEntity user = userRepository.findByEmail(request.email())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("Користувача з таким email не знайдено"));
 
-        String accessToken = accessTokenService.generateAccessToken(user.getEmail());
-        RefreshTokenEntity refreshToken = refreshTokenService.createRefreshToken(user.getId());
-
-        return new TokensDto(accessToken, refreshToken.getToken());
+        return generateTokensForUser(user);
     }
 
     public TokensDto refreshToken(String refreshToken) {
         return refreshTokenService.findByToken(refreshToken)
-                .map(RefreshTokenEntity -> {
-                    if (refreshTokenService.isTokenExpired(RefreshTokenEntity)) {
+                .map(refreshTokenEntity -> {
+                    if (refreshTokenService.isTokenExpired(refreshTokenEntity)) {
                         refreshTokenService.deleteByToken(refreshToken);
-                        throw new RuntimeException("Token expired");
+                        throw new TokenExpiredException("Час дії Refresh токена минув");
                     }
-                    return RefreshTokenEntity;
+                    return refreshTokenEntity.getUser();
                 })
-                .map(RefreshTokenEntity::getUser)
                 .map(user -> {
                     refreshTokenService.deleteByToken(refreshToken);
-                    RefreshTokenEntity newRefreshToken = refreshTokenService.createRefreshToken(user.getId());
-                    String newAccessToken = accessTokenService.generateAccessToken(user.getEmail());
-                    return new TokensDto(newAccessToken, newRefreshToken.getToken());
+                    return generateTokensForUser(user);
                 })
-                .orElseThrow(() -> new RuntimeException("Invalid refresh token"));
+                .orElseThrow(() -> new InvalidTokenException("Недійсний Refresh токен"));
     }
 
     public void logout(String refreshToken) {
@@ -88,7 +83,14 @@ public class AuthService {
 
     public UserProfileDto getUserProfile(String email) {
         UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("Користувача не знайдено"));
         return new UserProfileDto(user.getId(), user.getUsername(), user.getEmail());
+    }
+
+    private TokensDto generateTokensForUser(UserEntity user) {
+        String accessToken = accessTokenService.generateAccessToken(user.getEmail());
+        RefreshTokenEntity refreshToken = refreshTokenService.createRefreshToken(user);
+
+        return new TokensDto(accessToken, refreshToken.getToken());
     }
 }

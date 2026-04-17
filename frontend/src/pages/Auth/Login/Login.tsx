@@ -68,7 +68,7 @@ const Login = () => {
         </div>
         <div className={styles.loginLink}>
           <p>Не маєте акаунта?</p>
-          <Link to="/registration">Реєстрація</Link>
+          <Link to="/register">Реєстрація</Link>
         </div>
       </form>
     </div>

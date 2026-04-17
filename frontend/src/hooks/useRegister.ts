@@ -21,7 +21,7 @@ const useRegister = () => {
     if (!mutation.error) return null;
     if (isAxiosError(mutation.error)) {
       return new Error(
-        mutation.error.response?.data?.message || "Помилка реєстрації",
+        mutation.error.response?.data?.detail || "Помилка реєстрації",
       );
     }
     return mutation.error;

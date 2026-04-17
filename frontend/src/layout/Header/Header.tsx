@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 export const Header = () => {
   const { data } = useQuery({
-    queryKey: ["auth"],
+    queryKey: ["user"],
     queryFn: () => authApi.getUser(),
     staleTime: Infinity,
   });
@@ -18,7 +18,9 @@ export const Header = () => {
       </div>
 
       {data ? (
-        <Link to="/account">{data.username}</Link>
+        <Link to="/account" className={styles.accountLink}>
+          {data.username}
+        </Link>
       ) : (
         <div className={styles.buttons}>
           <Link to="/login" className={styles.loginButton}>
