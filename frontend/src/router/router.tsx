@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, redirect } from "react-router";
 import { Layout } from "@/layout/Layout/Layout";
 import { Home } from "@/pages/Home/Home";
 import { Fundraising } from "@/pages/Fundraising/Fundraising";
@@ -7,6 +7,8 @@ import { fundraisingApi } from "@/api/fundraisingApi.ts";
 import Register from "@/pages/Auth/Register/Register.tsx";
 import Login from "@/pages/Auth/Login/Login.tsx";
 import { authApi } from "@/api/authApi.ts";
+import Account from "@/pages/Account/Account.tsx";
+import Profile from "@/pages/Account/Profile/Profile.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +24,7 @@ export const router = createBrowserRouter([
         return null;
       }
     },
+
     children: [
       {
         index: true,
@@ -33,17 +36,44 @@ export const router = createBrowserRouter([
           });
         },
       },
+
       {
         path: "fundraising/:username/:slug",
         Component: Fundraising,
       },
+
       {
         path: "register",
         Component: Register,
       },
+
       {
         path: "login",
         Component: Login,
+      },
+
+      {
+        path: "account",
+        Component: Account,
+
+        children: [
+          {
+            index: true,
+            loader: () => redirect("profile"),
+          },
+          {
+            path: "profile",
+            Component: Profile,
+          },
+          {
+            path: "donations",
+            element: <div>Мої донати</div>,
+          },
+          {
+            path: "fundraisers",
+            element: <div>Мої збори</div>,
+          },
+        ],
       },
     ],
   },
