@@ -1,13 +1,13 @@
 import { Logo } from "@/components/shared/Logo/Logo";
 import styles from "./Header.module.css";
 import { useQuery } from "@tanstack/react-query";
-import { authApi } from "@/api/authApi.ts";
 import { Link } from "react-router";
+import { accountApi } from "@/api/accountApi.ts";
 
 export const Header = () => {
   const { data } = useQuery({
     queryKey: ["user"],
-    queryFn: () => authApi.getUser(),
+    queryFn: () => accountApi.getUser(),
     staleTime: Infinity,
   });
 

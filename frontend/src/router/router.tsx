@@ -6,9 +6,9 @@ import { queryClient } from "@/api/queryClient.ts";
 import { fundraisingApi } from "@/api/fundraisingApi.ts";
 import Register from "@/pages/Auth/Register/Register.tsx";
 import Login from "@/pages/Auth/Login/Login.tsx";
-import { authApi } from "@/api/authApi.ts";
 import Account from "@/pages/Account/Account.tsx";
 import Profile from "@/pages/Account/Profile/Profile.tsx";
+import { accountApi } from "@/api/accountApi.ts";
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
       try {
         return await queryClient.ensureQueryData({
           queryKey: ["user"],
-          queryFn: authApi.getUser,
+          queryFn: accountApi.getUser,
         });
       } catch {
         return null;
@@ -55,7 +55,13 @@ export const router = createBrowserRouter([
       {
         path: "account",
         Component: Account,
-
+        loader: () => {
+          const user = queryClient.getQueryData(["user"]);
+          if (!user) {
+            throw redirect("/login");
+          }
+          return null;
+        },
         children: [
           {
             index: true,

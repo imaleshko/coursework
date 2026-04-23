@@ -3,7 +3,6 @@ package com.donats.backend.auth;
 import com.donats.backend.auth.dto.LoginRequest;
 import com.donats.backend.auth.dto.RegisterRequest;
 import com.donats.backend.auth.dto.TokensDto;
-import com.donats.backend.auth.dto.UserProfileDto;
 import com.donats.backend.entities.RefreshTokenEntity;
 import com.donats.backend.entities.UserEntity;
 import com.donats.backend.exceptions.InvalidTokenException;
@@ -79,12 +78,6 @@ public class AuthService {
 
     public void logout(String refreshToken) {
         refreshTokenService.deleteByToken(refreshToken);
-    }
-
-    public UserProfileDto getUserProfile(String email) {
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserNotFoundException("Користувача не знайдено"));
-        return new UserProfileDto(user.getId(), user.getUsername(), user.getEmail());
     }
 
     private TokensDto generateTokensForUser(UserEntity user) {

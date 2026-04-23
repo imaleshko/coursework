@@ -1,13 +1,14 @@
 package com.donats.backend.auth;
 
-import com.donats.backend.auth.dto.*;
+import com.donats.backend.auth.dto.AuthResponse;
+import com.donats.backend.auth.dto.LoginRequest;
+import com.donats.backend.auth.dto.RegisterRequest;
+import com.donats.backend.auth.dto.TokensDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -64,16 +65,6 @@ public class AuthController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .build();
-    }
-
-    @GetMapping("/user")
-    public ResponseEntity<UserProfileDto> getUser(@AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        UserProfileDto profile = authService.getUserProfile(userDetails.getUsername());
-        return ResponseEntity.ok(profile);
     }
 
     private ResponseCookie cookie(TokensDto tokens) {

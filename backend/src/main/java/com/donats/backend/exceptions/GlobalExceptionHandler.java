@@ -1,10 +1,12 @@
 package com.donats.backend.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
+import org.jspecify.annotations.NonNull;
+import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
@@ -12,9 +14,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ProblemDetail handleUserAlreadyExists(UserAlreadyExistsException ex) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
-        problemDetail.setTitle("Користувач вже існує");
         return createProblemDetail(HttpStatus.CONFLICT, "Користувач вже існує", ex.getMessage());
+    }
+
+    @ExceptionHandler({EmailAlreadyInUseException.class, UsernameAlreadyInUseException.class})
+    public ProblemDetail handleDataInUse(RuntimeException ex) {
+        return createProblemDetail(HttpStatus.CONFLICT, "Конфлікт даних", ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ProblemDetail handleInvalidPassword(RuntimeException ex) {
+        return createProblemDetail(HttpStatus.BAD_REQUEST, "Неправильний пароль", ex.getMessage());
     }
 
     @ExceptionHandler(UserNotFoundException.class)
@@ -30,6 +40,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     public ProblemDetail handleBadCredentials() {
         return createProblemDetail(HttpStatus.UNAUTHORIZED, "Помилка авторизації", "Неправильний email або пароль");
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            @NonNull MethodArgumentNotValidException ex,
+            @NonNull HttpHeaders headers,
+            @NonNull HttpStatusCode status,
+            @NonNull WebRequest request) {
+
+        String detailMessage = ex.getFieldError() != null
+                ? ex.getFieldError().getDefaultMessage()
+                : "Некоректні вхідні дані";
+
+        return ResponseEntity.badRequest()
+                .body(createProblemDetail(HttpStatus.BAD_REQUEST, "Помилка валідації", detailMessage));
     }
 
     private ProblemDetail createProblemDetail(HttpStatus status, String title, String detail) {
