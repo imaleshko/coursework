@@ -1,4 +1,4 @@
-import styles from "./PasswordField.module.css";
+import styles from "./Field.module.css";
 import editIcon from "@/assets/edit.png";
 import { type ChangeEvent, useState } from "react";
 
@@ -19,14 +19,16 @@ const PasswordField = ({
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const clearFieldError = (fieldName: string) => {
-    if (errors[fieldName]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[fieldName];
-        return newErrors;
-      });
-    }
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setOldPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setErrors({});
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
   };
 
   const validate = () => {
@@ -45,18 +47,6 @@ const PasswordField = ({
     return validationErrors;
   };
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-    setOldPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
-    setErrors({});
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
-  };
-
   const handleSave = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
@@ -70,6 +60,16 @@ const PasswordField = ({
       setNewPassword("");
       setConfirmPassword("");
     });
+  };
+
+  const clearFieldError = (fieldName: string) => {
+    if (errors[fieldName]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[fieldName];
+        return newErrors;
+      });
+    }
   };
 
   if (!isEditing) {

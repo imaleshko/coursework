@@ -9,6 +9,7 @@ import Login from "@/pages/Auth/Login/Login.tsx";
 import Account from "@/pages/Account/Account.tsx";
 import Profile from "@/pages/Account/Profile/Profile.tsx";
 import { accountApi } from "@/api/accountApi.ts";
+import requireAuth from "@/router/requireAuth.ts";
 
 export const router = createBrowserRouter([
   {
@@ -36,32 +37,22 @@ export const router = createBrowserRouter([
           });
         },
       },
-
       {
         path: "fundraising/:username/:slug",
         Component: Fundraising,
       },
-
       {
         path: "register",
         Component: Register,
       },
-
       {
         path: "login",
         Component: Login,
       },
-
       {
         path: "account",
         Component: Account,
-        loader: () => {
-          const user = queryClient.getQueryData(["user"]);
-          if (!user) {
-            throw redirect("/login");
-          }
-          return null;
-        },
+        loader: requireAuth,
         children: [
           {
             index: true,

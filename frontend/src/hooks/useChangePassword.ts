@@ -19,7 +19,6 @@ const useChangePassword = () => {
   return {
     changePassword: mutation.mutate,
     isPending: mutation.isPending,
-    isError: mutation.isError,
     error: getErrorMessage(),
   };
 };

@@ -3,11 +3,9 @@ package com.donats.backend.account;
 import com.donats.backend.account.dto.*;
 import com.donats.backend.entities.UserEntity;
 import com.donats.backend.security.AccessTokenService;
-import org.springframework.http.HttpStatus;
+import com.donats.backend.security.CustomUserDetails;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,11 +21,7 @@ public class AccountController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<UserDto> getUser(@AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
+    public ResponseEntity<UserDto> getUser(@AuthenticationPrincipal CustomUserDetails userDetails) {
         UserDto profile = accountService.getUser(userDetails.getUsername());
         return ResponseEntity.ok(profile);
     }
@@ -36,10 +30,9 @@ public class AccountController {
     @PatchMapping("/email")
     public ResponseEntity<ChangeEmailResponse> changeEmail(
             @RequestBody ChangeEmailRequest request,
-            Authentication authentication
+            @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        String currentEmail = authentication.getName();
-        UserEntity updatedUser = accountService.changeEmail(currentEmail, request.email());
+        UserEntity updatedUser = accountService.changeEmail(userDetails.getUsername(), request.email());
 
         String accessToken = accessTokenService.generateAccessToken(updatedUser.getEmail());
 
@@ -50,10 +43,9 @@ public class AccountController {
     @PatchMapping("/username")
     public ResponseEntity<UserDto> changeUsername(
             @RequestBody ChangeUsernameRequest request,
-            Authentication authentication
+            @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        String currentEmail = authentication.getName();
-        UserEntity updatedUser = accountService.changeUsername(currentEmail, request.username());
+        UserEntity updatedUser = accountService.changeUsername(userDetails.getUsername(), request.username());
 
         return ResponseEntity.ok(toDto(updatedUser));
     }
@@ -61,10 +53,9 @@ public class AccountController {
     @PatchMapping("/password")
     public ResponseEntity<Void> changePassword(
             @RequestBody ChangePasswordRequest request,
-            Authentication authentication
+            @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        String currentEmail = authentication.getName();
-        accountService.changePassword(currentEmail, request.oldPassword(), request.newPassword());
+        accountService.changePassword(userDetails.getUsername(), request.oldPassword(), request.newPassword());
 
         return ResponseEntity.ok().build();
     }

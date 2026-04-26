@@ -23,7 +23,6 @@ const useChangeEmail = () => {
   return {
     changeEmail: mutation.mutate,
     isPending: mutation.isPending,
-    isError: mutation.isError,
     error: getErrorMessage(),
   };
 };

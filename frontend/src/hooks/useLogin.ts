@@ -1,19 +1,24 @@
-import { useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authApi, type LoginRequest } from "@/api/authApi.ts";
 import { isAxiosError } from "axios";
 import { setAccessToken } from "@/api/api.ts";
+import { useNavigate } from "react-router";
 
 const useLogin = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: (data: LoginRequest) => authApi.login(data),
-    onSuccess: (response) => {
+    onSuccess: async (response) => {
       if (response?.accessToken) {
         setAccessToken(response.accessToken);
       }
-      navigate("/account");
+
+      void queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+      navigate("/account/profile");
     },
   });
 

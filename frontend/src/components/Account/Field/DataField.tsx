@@ -1,4 +1,4 @@
-import styles from "./DataField.module.css";
+import styles from "./Field.module.css";
 import editIcon from "@/assets/edit.png";
 import { type ChangeEvent, useState } from "react";
 
@@ -21,8 +21,8 @@ const DataField = ({
   serverError,
   validate,
 }: DataFieldProps) => {
-  const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(value);
+  const [isEditing, setIsEditing] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

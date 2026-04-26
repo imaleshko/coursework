@@ -24,7 +24,6 @@ const useChangeUsername = () => {
   return {
     changeUsername: mutation.mutate,
     isPending: mutation.isPending,
-    isError: mutation.isError,
     error: getErrorMessage(),
   };
 };
