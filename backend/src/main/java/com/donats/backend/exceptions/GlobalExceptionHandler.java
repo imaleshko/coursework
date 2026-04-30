@@ -1,6 +1,7 @@
 package com.donats.backend.exceptions;
 
 import com.donats.backend.fundraising.creating.exception.SlugAlreadyInUseException;
+import com.donats.backend.image.ImageUploadException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -41,6 +42,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(SlugAlreadyInUseException.class)
     public ProblemDetail handleSlugAlreadyInUse(RuntimeException ex) {
         return createProblemDetail(HttpStatus.CONFLICT, "Помилка створення збору", ex.getMessage());
+    }
+
+    @ExceptionHandler(ImageUploadException.class)
+    public ProblemDetail handleImageUpload(RuntimeException ex) {
+        return createProblemDetail(HttpStatus.BAD_REQUEST, "Помилка завантаження зображення", ex.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)

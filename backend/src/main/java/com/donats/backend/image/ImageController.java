@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/image")
+@RequestMapping("/api/images")
 public class ImageController {
 
     private final ImageService imageService;
@@ -19,9 +19,9 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PostMapping
+    @PostMapping("/upload")
     public ResponseEntity<List<String>> uploadImages(@RequestParam("files") List<MultipartFile> files) {
-        List<String> imageUrls = imageService.uploadImages(files);
-        return ResponseEntity.ok(imageUrls);
+        List<String> uploadedUrls = imageService.uploadImages(files);
+        return ResponseEntity.ok(uploadedUrls);
     }
 }
