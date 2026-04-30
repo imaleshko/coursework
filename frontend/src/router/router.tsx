@@ -10,6 +10,7 @@ import Account from "@/pages/Account/Account.tsx";
 import Profile from "@/pages/Account/Profile/Profile.tsx";
 import { accountApi } from "@/api/accountApi.ts";
 import requireAuth from "@/router/requireAuth.ts";
+import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -68,7 +69,16 @@ export const router = createBrowserRouter([
           },
           {
             path: "fundraisers",
-            element: <div>Мої збори</div>,
+            children: [
+              {
+                index: true,
+                Component: Fundraisers,
+              },
+              {
+                path: "create",
+                element: <div>Форма збору</div>,
+              },
+            ],
           },
         ],
       },

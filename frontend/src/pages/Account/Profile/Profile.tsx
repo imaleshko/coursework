@@ -53,6 +53,8 @@ const Profile = () => {
       <section className={styles.section}>
         <h2 className={styles.cardTitle}>Персональні дані</h2>
 
+        <div className={styles.divider}></div>
+
         <div className={styles.formGroup}>
           <DataField
             label="Електронна адреса"
