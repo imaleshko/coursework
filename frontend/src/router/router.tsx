@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, redirect } from "react-router";
 import { Layout } from "@/layout/Layout/Layout";
 import { Home } from "@/pages/Home/Home";
 import { Fundraising } from "@/pages/Fundraising/Fundraising";
@@ -6,7 +6,12 @@ import { queryClient } from "@/api/queryClient.ts";
 import { fundraisingApi } from "@/api/fundraisingApi.ts";
 import Register from "@/pages/Auth/Register/Register.tsx";
 import Login from "@/pages/Auth/Login/Login.tsx";
-import { authApi } from "@/api/authApi.ts";
+import Account from "@/pages/Account/Account.tsx";
+import Profile from "@/pages/Account/Profile/Profile.tsx";
+import { accountApi } from "@/api/accountApi.ts";
+import requireAuth from "@/router/requireAuth.ts";
+import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
+import CreateFundraising from "@/pages/Account/CreateFundraising/CreateFundraising.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -16,12 +21,13 @@ export const router = createBrowserRouter([
       try {
         return await queryClient.ensureQueryData({
           queryKey: ["user"],
-          queryFn: authApi.getUser,
+          queryFn: accountApi.getUser,
         });
       } catch {
         return null;
       }
     },
+
     children: [
       {
         index: true,
@@ -44,6 +50,38 @@ export const router = createBrowserRouter([
       {
         path: "login",
         Component: Login,
+      },
+      {
+        path: "account",
+        Component: Account,
+        loader: requireAuth,
+        children: [
+          {
+            index: true,
+            loader: () => redirect("profile"),
+          },
+          {
+            path: "profile",
+            Component: Profile,
+          },
+          {
+            path: "donations",
+            element: <div>Мої донати</div>,
+          },
+          {
+            path: "fundraisers",
+            children: [
+              {
+                index: true,
+                Component: Fundraisers,
+              },
+              {
+                path: "create",
+                Component: CreateFundraising,
+              },
+            ],
+          },
+        ],
       },
     ],
   },

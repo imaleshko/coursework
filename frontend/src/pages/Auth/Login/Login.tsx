@@ -33,9 +33,7 @@ const Login = () => {
       <form className={styles.form} onSubmit={handleSubmit}>
         <h2 className={styles.formTitle}>Вхід</h2>
         {isError && error && (
-          <p className={`${styles.errorText} ${styles.serverError}`}>
-            {error.message}
-          </p>
+          <p className={`${styles.errorText} ${styles.serverError}`}>{error}</p>
         )}
         <div className={styles.inputs}>
           <input

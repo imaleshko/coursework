@@ -15,8 +15,7 @@ export const setAccessToken = (token: string | null) => {
 
 api.interceptors.request.use((config) => {
   if (accessToken) {
-    config.headers = config.headers || {};
-    config.headers.Authorization = `Bearer ${accessToken}`;
+    config.headers.set("Authorization", `Bearer ${accessToken}`);
   }
   return config;
 });
@@ -25,9 +24,10 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const status = error.response?.status;
 
     if (
-      error.response?.status === 401 &&
+      (status === 401 || status === 403) &&
       !originalRequest._retry &&
       !originalRequest.url?.includes("/auth/refresh") &&
       !originalRequest.url?.includes("/auth/login") &&
@@ -36,13 +36,19 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const response = await api.post("/auth/refresh");
+        const response = await axios.post(
+          `${baseURL}/auth/refresh`,
+          {},
+          { withCredentials: true },
+        );
 
         const newAccessToken = response.data.accessToken;
         setAccessToken(newAccessToken);
 
-        originalRequest.headers = originalRequest.headers || {};
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        originalRequest.headers.set(
+          "Authorization",
+          `Bearer ${newAccessToken}`,
+        );
         return api(originalRequest);
       } catch (refreshError) {
         setAccessToken(null);

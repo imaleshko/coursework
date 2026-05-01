@@ -17,14 +17,12 @@ const useRegister = () => {
     },
   });
 
-  const getErrorMessage = () => {
+  const getErrorMessage = (): string | null => {
     if (!mutation.error) return null;
     if (isAxiosError(mutation.error)) {
-      return new Error(
-        mutation.error.response?.data?.detail || "Помилка реєстрації",
-      );
+      return mutation.error.response?.data?.detail || "Помилка реєстрації";
     }
-    return mutation.error;
+    return mutation.error.message || "Невідома помилка";
   };
 
   return {

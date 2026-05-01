@@ -21,14 +21,14 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final JwtAuthenticationFilter jwtAuthFilter;
+    private final JwtAuthenticationFilter JwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
 
     @Value("${cors.allowed-origins}")
     private List<String> allowedOrigins;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, AuthenticationProvider authenticationProvider) {
-        this.jwtAuthFilter = jwtAuthFilter;
+    public SecurityConfig(JwtAuthenticationFilter JwtAuthenticationFilter, AuthenticationProvider authenticationProvider) {
+        this.JwtAuthenticationFilter = JwtAuthenticationFilter;
         this.authenticationProvider = authenticationProvider;
     }
 
@@ -41,13 +41,15 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/fundraising/**",
                                 "/api/auth/**",
-                                "/error"
-                        ).permitAll().anyRequest().authenticated()
+                                "/error",
+                                "/api/images/upload"
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(JwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
