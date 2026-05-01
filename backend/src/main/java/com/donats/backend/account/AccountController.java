@@ -60,7 +60,17 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
+    @PatchMapping("/avatar")
+    public ResponseEntity<UserDto> changeAvatar(
+            @RequestBody ChangeAvatarRequest request,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        UserEntity updatedUser = accountService.changeAvatar(userDetails.getUsername(), request.avatarUrl());
+
+        return ResponseEntity.ok(toDto(updatedUser));
+    }
+
     private UserDto toDto(UserEntity user) {
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail());
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getAvatarUrl());
     }
 }

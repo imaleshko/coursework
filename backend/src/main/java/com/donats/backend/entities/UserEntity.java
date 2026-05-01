@@ -22,10 +22,13 @@ public class UserEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<FundraisingEntity> fundraisings;
 
-    @OneToMany(mappedBy = "user") // ми не можемо видалити зроблений донат
+    @OneToMany(mappedBy = "user")
     private List<DonationEntity> donations;
 
     @CreationTimestamp
@@ -35,11 +38,12 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String username, String password, String email, List<FundraisingEntity> fundraisings, List<DonationEntity> donations, LocalDateTime createdAt) {
+    public UserEntity(Long id, String username, String password, String email, String avatarUrl, List<FundraisingEntity> fundraisings, List<DonationEntity> donations, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.avatarUrl = avatarUrl;
         this.fundraisings = fundraisings;
         this.donations = donations;
         this.createdAt = createdAt;
@@ -75,6 +79,14 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public List<FundraisingEntity> getFundraisings() {

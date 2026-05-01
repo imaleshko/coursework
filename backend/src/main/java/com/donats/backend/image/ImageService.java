@@ -36,4 +36,17 @@ public class ImageService {
 
         return imageUrls;
     }
+
+    public void deleteImageByUrl(String imageUrl) {
+        if (imageUrl == null || imageUrl.isBlank()) {
+            return;
+        }
+
+        try {
+            String publicId = imageUrl.substring(imageUrl.lastIndexOf("/") + 1, imageUrl.lastIndexOf("."));
+
+            cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+        } catch (Exception ignored) {
+        }
+    }
 }
