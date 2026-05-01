@@ -10,16 +10,28 @@
   border: 1px solid var(--grey-color);
   border-radius: 40px;
   padding: 40px;
+  background-color: transparent;
 }
 
-.cardTitle {
+.header {
   display: flex;
   justify-content: center;
-  font-size: 24px;
-  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.createButton {
+  background-color: rgb(67 113 152 / 0.69);
   color: var(--text-grey-color);
-  margin-top: 0;
-  margin-bottom: 24px;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.createButton:hover {
+  background-color: rgb(54 82 104 / 0.69);
 }
 
 .divider {
@@ -31,24 +43,17 @@
     rgba(255, 255, 255, 0.2) 50%,
     rgba(255, 255, 255, 0) 100%
   );
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
-.formGroup {
+.content {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
 }
 
-.deleteButton {
-  display: block;
-  margin-top: 40px;
-  margin-left: auto;
-  background-color: var(--delete-red-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 16px;
-  cursor: pointer;
+.emptyState {
+  color: var(--text-grey-color);
+  font-size: 20px;
 }

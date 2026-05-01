@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "fundraisings", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "slug" }) })
+@Table(name = "fundraisings", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "slug"})})
 public class FundraisingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class FundraisingEntity {
     @Column(name = "balance", nullable = false)
     private BigDecimal balance;
 
-    @Column(name = "goal", nullable = false)
+    @Column(name = "goal")
     private BigDecimal goal;
 
     @Column(name = "startedAt")
@@ -42,7 +42,7 @@ public class FundraisingEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @Column(name = "endDate", nullable = false)
+    @Column(name = "endDate")
     private LocalDate endDate;
 
     @ElementCollection

@@ -18,10 +18,15 @@ export interface ChangePasswordRequest {
   newPassword: string;
 }
 
+export interface ChangeAvatarRequest {
+  avatarUrl: string;
+}
+
 export interface User {
   id: number;
   username: string;
   email: string;
+  avatarUrl: string | null;
 }
 
 export const accountApi = {
@@ -46,5 +51,10 @@ export const accountApi = {
 
   changePassword: async (password: ChangePasswordRequest): Promise<void> => {
     await api.patch<void>("/account/password", password);
+  },
+
+  changeAvatar: async (avatar: ChangeAvatarRequest): Promise<User> => {
+    const response = await api.patch<User>("/account/avatar", avatar);
+    return response.data;
   },
 };
