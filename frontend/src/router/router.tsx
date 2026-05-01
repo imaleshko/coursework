@@ -24,6 +24,7 @@ export const router = createBrowserRouter([
           queryFn: accountApi.getUser,
         });
       } catch {
+        queryClient.setQueryData(["user"], null);
         return null;
       }
     },
