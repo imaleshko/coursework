@@ -1,9 +1,14 @@
 import styles from "./CreateFundraising.module.css";
 import { useNavigate } from "react-router";
 import MDEditor from "@uiw/react-md-editor";
-import { useUploadImages } from "@/hooks/useUploadImages.ts";
 import { useCreateFundraising } from "@/hooks/useCreateFundraising.ts";
-import { type ChangeEvent, type DragEvent, type SubmitEventHandler, useRef, useState } from "react";
+import {
+  type ChangeEvent,
+  type DragEvent,
+  type SubmitEventHandler,
+  useRef,
+  useState,
+} from "react";
 
 const INITIAL_FORM = {
   title: "",
@@ -29,10 +34,9 @@ type ImageEntry = { file: File; previewUrl: string };
 
 const CreateFundraising = () => {
   const navigate = useNavigate();
-  const { uploadImages, isUploading, error: uploadError } = useUploadImages();
   const {
     createFundraising,
-    isCreating,
+    isPending,
     error: createError,
   } = useCreateFundraising();
 
@@ -79,34 +83,29 @@ const CreateFundraising = () => {
       return;
     }
 
-    try {
-      const imageUrls = images.length
-        ? await uploadImages(images.map((image) => image.file))
-        : [];
-      await createFundraising({
+    createFundraising(
+      {
         title: formData.title.trim(),
         slug: formData.slug.trim(),
         description: formData.description.trim(),
         goal: formData.goal ? Number(formData.goal) : undefined,
         endDate: formData.endDate || undefined,
-        imagesUrl: imageUrls,
-      });
-      navigate("/account/fundraisers");
-    } catch {
-      /* empty */
-    }
+        images: images.map((img) => img.file),
+      },
+      {
+        onSuccess: () => navigate("/account/fundraisers"),
+      },
+    );
   };
-
-  const isPending = isUploading || isCreating;
 
   return (
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <h2 className={styles.formTitle}>Створення нового збору</h2>
 
-        {(uploadError || createError) && (
+        {createError && (
           <p className={`${styles.errorText} ${styles.serverError}`}>
-            {uploadError || createError}
+            {createError}
           </p>
         )}
 

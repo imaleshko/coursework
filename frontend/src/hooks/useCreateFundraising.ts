@@ -1,13 +1,42 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { type CreateFundraisingRequest, fundraisingApi } from "@/api/fundraisingApi.ts";
+import {
+  type CreateFundraisingRequest,
+  fundraisingApi,
+} from "@/api/fundraisingApi.ts";
 import { isAxiosError } from "axios";
+import { imageApi } from "@/api/imageApi.ts";
+
+interface CreateFundraisingFormData {
+  title: string;
+  slug: string;
+  description: string;
+  goal?: number;
+  endDate?: string;
+  images: File[];
+}
 
 export const useCreateFundraising = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (data: CreateFundraisingRequest) =>
-      fundraisingApi.createFundraising(data),
+    mutationFn: async (data: CreateFundraisingFormData) => {
+      let imageUrls: string[] = [];
+
+      if (data.images.length > 0) {
+        imageUrls = await imageApi.uploadImages(data.images);
+      }
+
+      const requestData: CreateFundraisingRequest = {
+        title: data.title,
+        slug: data.slug,
+        description: data.description,
+        goal: data.goal,
+        endDate: data.endDate,
+        imagesUrl: imageUrls,
+      };
+
+      return fundraisingApi.createFundraising(requestData);
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["fundraisings"] });
     },
@@ -22,8 +51,8 @@ export const useCreateFundraising = () => {
   };
 
   return {
-    createFundraising: mutation.mutateAsync,
-    isCreating: mutation.isPending,
+    createFundraising: mutation.mutate,
+    isPending: mutation.isPending,
     error: getErrorMessage(),
   };
 };
