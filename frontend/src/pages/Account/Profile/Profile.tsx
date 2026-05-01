@@ -5,6 +5,7 @@ import useGetUser from "@/hooks/useGetUser.ts";
 import useChangeEmail from "@/hooks/useChangeEmail.ts";
 import useChangePassword from "@/hooks/useChangePassword.ts";
 import useChangeUsername from "@/hooks/useChangeUsername.ts";
+import AvatarField from "@/components/Account/Field/AvatarField.tsx";
 
 const validateEmail = (value: string) =>
   !value.includes("@") ? "Некоректна пошта" : null;
@@ -54,6 +55,8 @@ const Profile = () => {
         <h2 className={styles.cardTitle}>Персональні дані</h2>
 
         <div className={styles.divider}></div>
+
+        <AvatarField avatarUrl={user.avatarUrl} />
 
         <div className={styles.formGroup}>
           <DataField
