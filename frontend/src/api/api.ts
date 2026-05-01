@@ -50,9 +50,9 @@ api.interceptors.response.use(
           `Bearer ${newAccessToken}`,
         );
         return api(originalRequest);
-      } catch (refreshError) {
+      } catch {
         setAccessToken(null);
-        return Promise.reject(refreshError);
+        return Promise.reject(error);
       }
     }
     return Promise.reject(error);
