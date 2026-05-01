@@ -6,6 +6,7 @@ import com.donats.backend.exceptions.EmailAlreadyInUseException;
 import com.donats.backend.exceptions.InvalidPasswordException;
 import com.donats.backend.exceptions.UserNotFoundException;
 import com.donats.backend.exceptions.UsernameAlreadyInUseException;
+import com.donats.backend.image.ImageService;
 import com.donats.backend.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,16 +17,18 @@ public class AccountService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ImageService imageService;
 
-    public AccountService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AccountService(UserRepository userRepository, PasswordEncoder passwordEncoder, ImageService imageService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.imageService = imageService;
     }
 
     public UserDto getUser(String email) {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Користувача не знайдено"));
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail());
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getAvatarUrl());
     }
 
     @Transactional
@@ -60,6 +63,19 @@ public class AccountService {
 
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
+    }
+
+    @Transactional
+    public UserEntity changeAvatar(String currentEmail, String newAvatarUrl) {
+        UserEntity user = getUserByEmail(currentEmail);
+        String oldAvatarUrl = user.getAvatarUrl();
+
+        if (oldAvatarUrl != null && !oldAvatarUrl.equals(newAvatarUrl)) {
+            imageService.deleteImageByUrl(oldAvatarUrl);
+        }
+        
+        user.setAvatarUrl(newAvatarUrl);
+        return userRepository.save(user);
     }
 
     private UserEntity getUserByEmail(String email) {
