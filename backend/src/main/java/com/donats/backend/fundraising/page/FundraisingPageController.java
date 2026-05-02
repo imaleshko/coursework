@@ -1,6 +1,5 @@
-package com.donats.backend.fundraising.creating;
+package com.donats.backend.fundraising.page;
 
-import com.donats.backend.fundraising.page.FundraisingPageService;
 import com.donats.backend.fundraising.page.dto.FundraisingResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

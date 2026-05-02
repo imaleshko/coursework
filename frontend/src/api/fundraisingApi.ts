@@ -28,8 +28,10 @@ export interface GetFundraisingResponse {
   endDate?: string;
   imagesUrl: string[];
   authorUsername: string;
+  authorAvatarUrl?: string;
   status: string;
   startedAt: string;
+  endedAt: string;
 }
 
 export const fundraisingApi = {

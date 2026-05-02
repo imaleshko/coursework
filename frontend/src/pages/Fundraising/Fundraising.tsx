@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fundraisingApi } from "@/api/fundraisingApi.ts";
 import Carousel from "@/pages/Fundraising/Components/Carousel/Carousel.tsx";
+import Info from "@/pages/Fundraising/Components/Info/Info.tsx";
 
 export const Fundraising = () => {
   const { username, slug } = useParams();
@@ -26,8 +27,9 @@ export const Fundraising = () => {
         <div className={styles.carouselContainer}>
           <Carousel imagesUrls={fundraising.imagesUrl} />
         </div>
-
-        <div className={styles.infoContainer}></div>
+        <div className={styles.infoContainer}>
+          <Info fundraising={fundraising} />
+        </div>{" "}
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface FundraisingRepository extends JpaRepository<FundraisingEntity, Long> {
+    @EntityGraph(attributePaths = {"user"})
     Optional<FundraisingEntity> findByUserUsernameAndSlug(String username, String slug);
 
     @EntityGraph(attributePaths = {"user"})

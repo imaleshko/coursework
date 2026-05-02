@@ -15,7 +15,9 @@ public record FundraisingResponseDto(
         LocalDate endDate,
         List<String> imagesUrl,
         String authorUsername,
+        String authorAvatarUrl,
         String status,
-        LocalDateTime startedAt
+        LocalDateTime startedAt,
+        LocalDateTime endedAt
 ) {
 }

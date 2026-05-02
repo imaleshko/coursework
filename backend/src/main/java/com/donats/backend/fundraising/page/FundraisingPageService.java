@@ -31,8 +31,10 @@ public class FundraisingPageService {
                 fundraising.getEndDate(),
                 fundraising.getImagesUrl(),
                 fundraising.getUser().getUsername(),
+                fundraising.getUser().getAvatarUrl(),
                 fundraising.getStatus().name(),
-                fundraising.getStartedAt()
+                fundraising.getStartedAt(),
+                fundraising.getEndedAt()
         );
     }
 }
