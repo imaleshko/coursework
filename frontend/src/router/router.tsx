@@ -43,6 +43,22 @@ export const router = createBrowserRouter([
       {
         path: "fundraising/:username/:slug",
         Component: Fundraising,
+        errorElement: (
+          <div style={{ padding: "40px", color: "white", textAlign: "center" }}>
+            Збір не знайдено (404)
+          </div>
+        ),
+        loader: async ({ params }) => {
+          const { username, slug } = params;
+
+          if (!username || !slug) {
+            throw redirect("/");
+          }
+          return await queryClient.ensureQueryData({
+            queryKey: ["fundraising", params.username, params.slug],
+            queryFn: () => fundraisingApi.getByUsernameAndSlug(username, slug),
+          });
+        },
       },
       {
         path: "register",

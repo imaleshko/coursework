@@ -1,0 +1,37 @@
+.wrapper {
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--text-grey-color);
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 40px;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--grey-color);
+}
+
+.topSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.carouselContainer {
+  width: 100%;
+}
+
+.infoContainer {
+  width: 100%;
+}

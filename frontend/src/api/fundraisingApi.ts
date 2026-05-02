@@ -18,6 +18,22 @@ export interface CreateFundraisingRequest {
   imagesUrl?: string[];
 }
 
+export interface GetFundraisingResponse {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  balance: number;
+  goal?: number;
+  endDate?: string;
+  imagesUrl: string[];
+  authorUsername: string;
+  authorAvatarUrl?: string;
+  status: string;
+  startedAt: string;
+  endedAt: string;
+}
+
 export const fundraisingApi = {
   get5Newest: async (): Promise<FundraisingCard[]> => {
     const response = await api.get<FundraisingCard[]>("/fundraising/newest");
@@ -26,5 +42,15 @@ export const fundraisingApi = {
 
   createFundraising: async (data: CreateFundraisingRequest): Promise<void> => {
     await api.post<void>("/fundraising/create", data);
+  },
+
+  getByUsernameAndSlug: async (
+    username: string,
+    slug: string,
+  ): Promise<GetFundraisingResponse> => {
+    const response = await api.get<GetFundraisingResponse>(
+      `/fundraising/${username}/${slug}`,
+    );
+    return response.data;
   },
 };
