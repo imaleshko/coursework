@@ -6,8 +6,9 @@ import Carousel from "@/pages/Fundraising/Components/Carousel/Carousel.tsx";
 import Info from "@/pages/Fundraising/Components/Info/Info.tsx";
 import DonationForm from "@/pages/Fundraising/Components/DonationForm/DonationForm.tsx";
 import Description from "@/pages/Fundraising/Components/Description/Description.tsx";
-import { updateApi } from "@/api/updateApi.ts";
 import Update from "@/pages/Fundraising/Components/Update/Update.tsx";
+import { fundraisingPageApi } from "@/pages/Fundraising/fundraisingPageApi.ts";
+import DonationsHistory from "@/pages/Fundraising/Components/DonationsHistory/DonationsHistory.tsx";
 
 export const Fundraising = () => {
   const { username, slug } = useParams();
@@ -19,7 +20,13 @@ export const Fundraising = () => {
 
   const { data: updates } = useQuery({
     queryKey: ["fundraising-updates", fundraising?.id],
-    queryFn: () => updateApi.getUpdates(fundraising!.id),
+    queryFn: () => fundraisingPageApi.getUpdates(fundraising!.id),
+    enabled: !!fundraising?.id,
+  });
+
+  const { data: donations } = useQuery({
+    queryKey: ["fundraising-donations", fundraising?.id],
+    queryFn: () => fundraisingPageApi.getSuccessfulDonations(fundraising!.id),
     enabled: !!fundraising?.id,
   });
 
@@ -54,6 +61,8 @@ export const Fundraising = () => {
           createdAt={update.createdAt}
         />
       ))}
+
+      <DonationsHistory donations={donations} />
     </div>
   );
 };
