@@ -1,5 +1,7 @@
-package com.donats.backend.entities;
+package com.donats.backend.donation;
 
+import com.donats.backend.entities.FundraisingEntity;
+import com.donats.backend.entities.UserEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -34,10 +36,17 @@ public class DonationEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private DonationStatusEnum status;
+
+    @Column(name = "order_id", unique = true)
+    private String orderId;
+
     public DonationEntity() {
     }
 
-    public DonationEntity(Long id, String name, LocalDateTime createdAt, String message, BigDecimal amount, FundraisingEntity fundraising, UserEntity user) {
+    public DonationEntity(Long id, String name, LocalDateTime createdAt, String message, BigDecimal amount, FundraisingEntity fundraising, UserEntity user, DonationStatusEnum status, String orderId) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -45,6 +54,8 @@ public class DonationEntity {
         this.amount = amount;
         this.fundraising = fundraising;
         this.user = user;
+        this.status = status;
+        this.orderId = orderId;
     }
 
     public Long getId() {
@@ -101,5 +112,21 @@ public class DonationEntity {
 
     public void setUser(UserEntity userEntity) {
         this.user = userEntity;
+    }
+
+    public DonationStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(DonationStatusEnum status) {
+        this.status = status;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

@@ -32,3 +32,8 @@ cloudinary:
   cloud-name: ${CLOUDINARY_CLOUD_NAME}
   api-key: ${CLOUDINARY_API_KEY}
   api-secret: ${CLOUDINARY_API_SECRET}
+
+liqpay:
+  public-key: ${LIQPAY_PUBLIC_KEY}
+  private-key: ${LIQPAY_PRIVATE_KEY}
+  server-url: ${SERVER_URL}
