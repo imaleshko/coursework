@@ -2,13 +2,7 @@ import styles from "./CreateFundraising.module.css";
 import { useNavigate } from "react-router";
 import MDEditor from "@uiw/react-md-editor";
 import { useCreateFundraising } from "@/hooks/useCreateFundraising.ts";
-import {
-  type ChangeEvent,
-  type DragEvent,
-  type SubmitEventHandler,
-  useRef,
-  useState,
-} from "react";
+import { type ChangeEvent, type DragEvent, type SubmitEventHandler, useRef, useState } from "react";
 
 const INITIAL_FORM = {
   title: "",

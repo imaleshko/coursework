@@ -1,6 +1,8 @@
 import styles from "./DonationForm.module.css";
 import { type ChangeEvent, type SubmitEventHandler, useState } from "react";
 import { useInitDonation } from "@/pages/Fundraising/Components/DonationForm/useInitDonation.ts";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router";
 
 interface DonationFormProps {
   fundraisingId: number;
@@ -15,10 +17,19 @@ const DonationForm = ({ fundraisingId }: DonationFormProps) => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  const queryClient = useQueryClient();
+  const { username, slug } = useParams();
   const { initDonation, isPending, error } = useInitDonation({
     onSuccessPayment: () => {
       alert("Дякуємо за донат!");
       setData({ amount: "", name: "", message: "" });
+
+      void queryClient.invalidateQueries({
+        queryKey: ["fundraising", username, slug],
+      });
+      void queryClient.invalidateQueries({
+        queryKey: ["fundraising-donations", fundraisingId],
+      });
     },
   });
 
