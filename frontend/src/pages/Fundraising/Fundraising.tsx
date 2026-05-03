@@ -6,6 +6,8 @@ import Carousel from "@/pages/Fundraising/Components/Carousel/Carousel.tsx";
 import Info from "@/pages/Fundraising/Components/Info/Info.tsx";
 import DonationForm from "@/pages/Fundraising/Components/DonationForm/DonationForm.tsx";
 import Description from "@/pages/Fundraising/Components/Description/Description.tsx";
+import { updateApi } from "@/api/updateApi.ts";
+import Update from "@/pages/Fundraising/Components/Update/Update.tsx";
 
 export const Fundraising = () => {
   const { username, slug } = useParams();
@@ -13,6 +15,12 @@ export const Fundraising = () => {
   const { data: fundraising } = useQuery({
     queryKey: ["fundraising", username, slug],
     queryFn: () => fundraisingApi.getByUsernameAndSlug(username!, slug!),
+  });
+
+  const { data: updates } = useQuery({
+    queryKey: ["fundraising-updates", fundraising?.id],
+    queryFn: () => updateApi.getUpdates(fundraising!.id),
+    enabled: !!fundraising?.id,
   });
 
   if (!fundraising) return null;
@@ -37,6 +45,15 @@ export const Fundraising = () => {
       <DonationForm fundraisingId={fundraising.id} />
 
       <Description description={fundraising.description} />
+
+      {updates?.map((update) => (
+        <Update
+          key={update.id}
+          title={update.title}
+          content={update.message}
+          createdAt={update.createdAt}
+        />
+      ))}
     </div>
   );
 };

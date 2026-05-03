@@ -1,4 +1,4 @@
-package com.donats.backend.entities;
+package com.donats.backend.update;
 
 import com.donats.backend.fundraising.FundraisingEntity;
 import jakarta.persistence.*;
@@ -24,13 +24,17 @@ public class FundraisingUpdateEntity {
     @Column(name = "message", nullable = false, columnDefinition = "TEXT")
     private String message;
 
+    @Column(name = "title", nullable = false)
+    private String title;
+
     public FundraisingUpdateEntity() {
     }
 
-    public FundraisingUpdateEntity(Long id, LocalDateTime createdAt, FundraisingEntity fundraising, String message) {
+    public FundraisingUpdateEntity(Long id, LocalDateTime createdAt, FundraisingEntity fundraising, String title, String message) {
         this.id = id;
         this.createdAt = createdAt;
         this.fundraising = fundraising;
+        this.title = title;
         this.message = message;
     }
 
@@ -64,5 +68,13 @@ public class FundraisingUpdateEntity {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
