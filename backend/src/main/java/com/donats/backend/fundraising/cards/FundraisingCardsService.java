@@ -1,7 +1,7 @@
 package com.donats.backend.fundraising.cards;
 
-import com.donats.backend.entities.FundraisingStatus;
-import com.donats.backend.repositories.FundraisingRepository;
+import com.donats.backend.fundraising.FundraisingRepository;
+import com.donats.backend.fundraising.FundraisingStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

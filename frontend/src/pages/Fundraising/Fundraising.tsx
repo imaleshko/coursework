@@ -5,6 +5,7 @@ import { fundraisingApi } from "@/api/fundraisingApi.ts";
 import Carousel from "@/pages/Fundraising/Components/Carousel/Carousel.tsx";
 import Info from "@/pages/Fundraising/Components/Info/Info.tsx";
 import DonationForm from "@/pages/Fundraising/Components/DonationForm/DonationForm.tsx";
+import Description from "@/pages/Fundraising/Components/Description/Description.tsx";
 
 export const Fundraising = () => {
   const { username, slug } = useParams();
@@ -34,6 +35,8 @@ export const Fundraising = () => {
       </div>
 
       <DonationForm fundraisingId={fundraising.id} />
+
+      <Description description={fundraising.description} />
     </div>
   );
 };

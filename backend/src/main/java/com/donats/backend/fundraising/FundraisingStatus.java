@@ -1,4 +1,4 @@
-package com.donats.backend.entities;
+package com.donats.backend.fundraising;
 
 public enum FundraisingStatus {
     ACTIVE,
