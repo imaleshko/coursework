@@ -42,6 +42,7 @@ public class SecurityConfig {
                                 "/api/fundraising/**",
                                 "/api/auth/**",
                                 "/api/donations/liqpay/server",
+                                "/api/donations/init",
                                 "/error"
                         ).permitAll()
                         .anyRequest().authenticated()
