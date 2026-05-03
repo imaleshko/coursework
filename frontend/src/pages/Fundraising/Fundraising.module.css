@@ -1,4 +1,6 @@
 .wrapper {
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
   display: flex;
@@ -12,7 +14,6 @@
   color: var(--text-grey-color);
   text-decoration: none;
   cursor: pointer;
-  margin-left: 40px;
 }
 
 .divider {
@@ -33,5 +34,23 @@
 }
 
 .infoContainer {
+  width: 100%;
+}
+
+.bottomSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.historyContainer {
+  width: 100%;
+}
+
+.sidebarContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   width: 100%;
 }

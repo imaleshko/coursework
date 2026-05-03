@@ -1,13 +1,15 @@
 import styles from "./Card.module.css";
+import { Link } from "react-router";
 
 interface CardProps {
   title: string;
   author: string;
   balance: number;
   goal: number;
+  slug: string;
 }
 
-export const Card = ({ title, author, balance, goal }: CardProps) => {
+export const Card = ({ title, author, balance, goal, slug }: CardProps) => {
   const percentage = Math.min((balance / goal) * 100, 100);
   const width = `${percentage}%`;
 
@@ -23,12 +25,16 @@ export const Card = ({ title, author, balance, goal }: CardProps) => {
         </div>
         <div className={styles.progress}>
           <div className={styles.progressFill} style={{ width: width }}>
-            <p className={styles.progressNumbers}>{`${balance}/${goal}`}</p>
+            <p className={styles.progressNumbers}>
+              {goal > 0 ? `${balance}/${goal}` : `${balance}`}
+            </p>
           </div>
         </div>
       </div>
 
-      <button className={styles.button}>Донат</button>
+      <Link to={`/fundraising/${author}/${slug}`} className={styles.button}>
+        Донат
+      </Link>
     </div>
   );
 };

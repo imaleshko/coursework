@@ -1,12 +1,12 @@
 package com.donats.backend.fundraising.creating;
 
-import com.donats.backend.entities.FundraisingEntity;
-import com.donats.backend.entities.FundraisingStatus;
 import com.donats.backend.entities.UserEntity;
 import com.donats.backend.exceptions.UserNotFoundException;
+import com.donats.backend.fundraising.FundraisingEntity;
+import com.donats.backend.fundraising.FundraisingRepository;
+import com.donats.backend.fundraising.FundraisingStatus;
 import com.donats.backend.fundraising.creating.dto.CreateFundraisingRequest;
 import com.donats.backend.fundraising.creating.exception.SlugAlreadyInUseException;
-import com.donats.backend.repositories.FundraisingRepository;
 import com.donats.backend.repositories.UserRepository;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;

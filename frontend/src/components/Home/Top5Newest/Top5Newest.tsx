@@ -14,6 +14,7 @@ const Top5Newest = () => {
           author={fundraising.author}
           balance={fundraising.balance}
           goal={fundraising.goal}
+          slug={fundraising.slug}
         />
       ))}
     </div>

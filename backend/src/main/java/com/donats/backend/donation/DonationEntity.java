@@ -1,7 +1,7 @@
 package com.donats.backend.donation;
 
-import com.donats.backend.entities.FundraisingEntity;
 import com.donats.backend.entities.UserEntity;
+import com.donats.backend.fundraising.FundraisingEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 

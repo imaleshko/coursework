@@ -1,9 +1,9 @@
 package com.donats.backend.fundraising.page;
 
-import com.donats.backend.entities.FundraisingEntity;
+import com.donats.backend.fundraising.FundraisingEntity;
+import com.donats.backend.fundraising.FundraisingRepository;
 import com.donats.backend.fundraising.page.dto.FundraisingResponseDto;
 import com.donats.backend.fundraising.page.exception.FundraisingNotFoundException;
-import com.donats.backend.repositories.FundraisingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

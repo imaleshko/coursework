@@ -1,7 +1,5 @@
-package com.donats.backend.repositories;
+package com.donats.backend.fundraising;
 
-import com.donats.backend.entities.FundraisingEntity;
-import com.donats.backend.entities.FundraisingStatus;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
