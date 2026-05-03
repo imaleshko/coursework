@@ -1,5 +1,7 @@
 package com.donats.backend.exceptions;
 
+import com.donats.backend.donation.exceptions.DonationCloseException;
+import com.donats.backend.donation.exceptions.DonationInitException;
 import com.donats.backend.fundraising.creating.exception.SlugAlreadyInUseException;
 import com.donats.backend.fundraising.page.exception.FundraisingNotFoundException;
 import com.donats.backend.image.ImageUploadException;
@@ -48,6 +50,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(FundraisingNotFoundException.class)
     public ProblemDetail handleFundraisingNotFound(RuntimeException ex) {
         return createProblemDetail(HttpStatus.NOT_FOUND, "Збір не знайдено", ex.getMessage());
+    }
+
+    @ExceptionHandler(DonationInitException.class)
+    public ProblemDetail handleDonationInit(RuntimeException ex) {
+        return createProblemDetail(HttpStatus.INTERNAL_SERVER_ERROR, "Помилка ініціалізації донату", ex.getMessage());
+    }
+
+    @ExceptionHandler(DonationCloseException.class)
+    public ProblemDetail handleDonationClose(RuntimeException ex) {
+        return createProblemDetail(HttpStatus.INTERNAL_SERVER_ERROR, "Помилка завершення донату", ex.getMessage());
     }
 
     @ExceptionHandler(ImageUploadException.class)

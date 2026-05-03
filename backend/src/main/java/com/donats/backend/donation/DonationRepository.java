@@ -1,10 +1,11 @@
-package com.donats.backend.repositories;
+package com.donats.backend.donation;
 
-import com.donats.backend.entities.DonationEntity;
-import com.donats.backend.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface DonationRepository extends JpaRepository<DonationEntity, Long> {
+    Optional<DonationEntity> findByOrderId(String orderId);
 }

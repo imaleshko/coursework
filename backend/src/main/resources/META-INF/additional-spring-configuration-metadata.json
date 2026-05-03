@@ -27,6 +27,18 @@
     {
       "name": "cloudinary.api-secret",
       "type": "java.lang.String"
+    },
+    {
+      "name": "liqpay.public-key",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "liqpay.private-key",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "liqpay.server-url",
+      "type": "java.lang.String"
     }
   ]
 }
