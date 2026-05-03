@@ -35,3 +35,21 @@
 .infoContainer {
   width: 100%;
 }
+
+.bottomSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.historyContainer {
+  width: 100%;
+}
+
+.sidebarContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}

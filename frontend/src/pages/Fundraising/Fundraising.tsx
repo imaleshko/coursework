@@ -9,6 +9,8 @@ import Description from "@/pages/Fundraising/Components/Description/Description.
 import Update from "@/pages/Fundraising/Components/Update/Update.tsx";
 import { fundraisingPageApi } from "@/pages/Fundraising/fundraisingPageApi.ts";
 import DonationsHistory from "@/pages/Fundraising/Components/DonationsHistory/DonationsHistory.tsx";
+import { useMemo } from "react";
+import TopDonations from "@/pages/Fundraising/Components/TopDonations/TopDonations.tsx";
 
 export const Fundraising = () => {
   const { username, slug } = useParams();
@@ -29,6 +31,12 @@ export const Fundraising = () => {
     queryFn: () => fundraisingPageApi.getSuccessfulDonations(fundraising!.id),
     enabled: !!fundraising?.id,
   });
+
+  const topDonations = useMemo(() => {
+    if (!donations) return [];
+
+    return [...donations].sort((a, b) => b.amount - a.amount).slice(0, 5);
+  }, [donations]);
 
   if (!fundraising) return null;
 
@@ -63,6 +71,16 @@ export const Fundraising = () => {
       ))}
 
       <DonationsHistory donations={donations} />
+
+      <div className={styles.bottomSection}>
+        <div className={styles.historyContainer}>
+          <DonationsHistory donations={donations} />
+        </div>
+
+        <div className={styles.sidebarContainer}>
+          <TopDonations donations={topDonations} />
+        </div>
+      </div>
     </div>
   );
 };
