@@ -29,6 +29,17 @@ export interface User {
   avatarUrl: string | null;
 }
 
+export interface UserDonationResponse {
+  id: number;
+  name: string;
+  amount: number;
+  createdAt: string;
+  message: string | null;
+  fundraisingTitle: string;
+  fundraisingSlug: string;
+  authorUsername: string;
+}
+
 export const accountApi = {
   getUser: async (): Promise<User> => {
     const response = await api.get<User>("/account/user");
@@ -55,6 +66,12 @@ export const accountApi = {
 
   changeAvatar: async (avatar: ChangeAvatarRequest): Promise<User> => {
     const response = await api.patch<User>("/account/avatar", avatar);
+    return response.data;
+  },
+
+  getMyDonations: async (): Promise<UserDonationResponse[]> => {
+    const response =
+      await api.get<UserDonationResponse[]>("/account/donations");
     return response.data;
   },
 };
