@@ -67,4 +67,9 @@
   cursor: pointer;
   font-size: 20px;
   color: #1e1e1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-sizing: border-box;
 }

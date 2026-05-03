@@ -70,8 +70,6 @@ export const Fundraising = () => {
         />
       ))}
 
-      <DonationsHistory donations={donations} />
-
       <div className={styles.bottomSection}>
         <div className={styles.historyContainer}>
           <DonationsHistory donations={donations} />
