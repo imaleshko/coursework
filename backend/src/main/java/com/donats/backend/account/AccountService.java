@@ -73,7 +73,7 @@ public class AccountService {
         if (oldAvatarUrl != null && !oldAvatarUrl.equals(newAvatarUrl)) {
             imageService.deleteImageByUrl(oldAvatarUrl);
         }
-        
+
         user.setAvatarUrl(newAvatarUrl);
         return userRepository.save(user);
     }

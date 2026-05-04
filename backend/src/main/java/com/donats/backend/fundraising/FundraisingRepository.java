@@ -15,5 +15,8 @@ public interface FundraisingRepository extends JpaRepository<FundraisingEntity, 
     @EntityGraph(attributePaths = {"user"})
     List<FundraisingEntity> findTop5ByStatusOrderByStartedAtDesc(FundraisingStatus status);
 
+    @EntityGraph(attributePaths = {"donations"})
+    List<FundraisingEntity> findAllByUserEmailOrderByStartedAtDesc(String email);
+
     boolean existsByUserAndSlug(com.donats.backend.entities.UserEntity user, String slug);
 }

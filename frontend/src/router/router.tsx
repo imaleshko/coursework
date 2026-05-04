@@ -13,6 +13,8 @@ import requireAuth from "@/router/requireAuth.ts";
 import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
 import CreateFundraising from "../pages/Account/Fundraisers/CreateFundraising/CreateFundraising.tsx";
 import Donations from "@/pages/Account/Donations/Donations.tsx";
+import EditFundraising from "@/pages/Account/Fundraisers/EditFundraising/EditFundraising.tsx";
+import AddUpdate from "@/pages/Account/Fundraisers/FundraisingUpdate/AddUpdate.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -96,6 +98,14 @@ export const router = createBrowserRouter([
               {
                 path: "create",
                 Component: CreateFundraising,
+              },
+              {
+                path: "edit/:slug",
+                Component: EditFundraising,
+              },
+              {
+                path: "add-update/:id",
+                Component: AddUpdate,
               },
             ],
           },
