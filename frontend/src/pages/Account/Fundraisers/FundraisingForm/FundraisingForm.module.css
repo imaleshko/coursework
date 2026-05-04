@@ -144,3 +144,17 @@
   font-weight: bold;
   margin-top: 20px;
 }
+
+.loadingWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 50vh;
+}
+
+.loadingText {
+  color: var(--text-grey-color);
+  font-size: 20px;
+  font-weight: 500;
+}

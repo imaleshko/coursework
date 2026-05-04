@@ -6,6 +6,8 @@ import com.donats.backend.donation.DonationRepository;
 import com.donats.backend.donation.DonationStatusEnum;
 import com.donats.backend.donation.dto.UserDonationResponseDto;
 import com.donats.backend.entities.UserEntity;
+import com.donats.backend.fundraising.FundraisingEntity;
+import com.donats.backend.fundraising.FundraisingRepository;
 import com.donats.backend.security.AccessTokenService;
 import com.donats.backend.security.CustomUserDetails;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +23,16 @@ public class AccountController {
     private final AccountService accountService;
     private final AccessTokenService accessTokenService;
     private final DonationRepository donationRepository;
+    private final FundraisingRepository fundraisingRepository;
 
-    public AccountController(AccountService accountService, AccessTokenService accessTokenService, DonationRepository donationRepository) {
+    public AccountController(AccountService accountService,
+                             AccessTokenService accessTokenService,
+                             DonationRepository donationRepository,
+                             FundraisingRepository fundraisingRepository) {
         this.accountService = accountService;
         this.accessTokenService = accessTokenService;
         this.donationRepository = donationRepository;
+        this.fundraisingRepository = fundraisingRepository;
     }
 
     @GetMapping("/user")
@@ -102,5 +109,30 @@ public class AccountController {
                 donation.getFundraising().getTitle(),
                 donation.getFundraising().getSlug(),
                 donation.getFundraising().getUser().getUsername());
+    }
+
+    @GetMapping("/fundraisings")
+    public ResponseEntity<List<UsersFundraisingResponse>> getMyFundraising(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<UsersFundraisingResponse> fundraising = fundraisingRepository
+                .findAllByUserEmailOrderByStartedAtDesc(userDetails.getUsername())
+                .stream()
+                .map(this::toUsersFundraisingResponseDto)
+                .toList();
+        return ResponseEntity.ok(fundraising);
+    }
+
+    private UsersFundraisingResponse toUsersFundraisingResponseDto(FundraisingEntity fundraising) {
+        long totalDonations = fundraising.getDonations().stream().filter(donation -> donation.getStatus() == DonationStatusEnum.SUCCESS).count();
+
+        return new UsersFundraisingResponse(
+                fundraising.getId(),
+                fundraising.getTitle(),
+                fundraising.getSlug(),
+                fundraising.getUser().getUsername(),
+                fundraising.getStartedAt(),
+                fundraising.getStatus(),
+                fundraising.getBalance(),
+                totalDonations
+        );
     }
 }
