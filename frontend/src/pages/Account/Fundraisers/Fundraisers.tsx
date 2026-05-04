@@ -17,7 +17,7 @@ const Fundraisers = () => {
   };
 
   const handleAddUpdate = (id: number) => {
-    console.log("Додати апдейт для", id);
+    navigate(`add-update/${id}`);
   };
 
   const handleEdit = (slug: string) => {
