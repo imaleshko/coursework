@@ -1,4 +1,4 @@
-import { queryClient } from "@/api/queryClient.ts";
+import { queryClient } from "./queryClient.ts";
 import { accountApi } from "@/api/accountApi.ts";
 import { redirect } from "react-router";
 

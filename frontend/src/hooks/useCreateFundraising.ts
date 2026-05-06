@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   type CreateFundraisingRequest,
-  fundraisingApi,
-} from "@/api/fundraisingApi.ts";
+  fundraisersApi,
+} from "../api/fundraisersApi.ts";
 import { isAxiosError } from "axios";
 import { imageApi } from "@/api/imageApi.ts";
 
@@ -35,7 +35,7 @@ export const useCreateFundraising = () => {
         imagesUrl: imageUrls,
       };
 
-      return fundraisingApi.createFundraising(requestData);
+      return fundraisersApi.createFundraising(requestData);
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["fundraisings"] });

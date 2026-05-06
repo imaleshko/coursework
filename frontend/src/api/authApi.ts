@@ -1,4 +1,4 @@
-import { api } from "@/api/api.ts";
+import { api } from "../app/api.ts";
 
 export interface RegisterRequest {
   username: string;

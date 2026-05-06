@@ -6,7 +6,6 @@
   border: 2px solid var(--grey-color);
   border-radius: 50px;
   gap: 40px;
-  background-color: transparent;
 }
 
 .content {
@@ -23,12 +22,10 @@
 }
 
 .title {
-  color: var(--grey-color);
   font-size: 28px;
 }
 
 .author {
-  color: var(--grey-color);
   font-size: 24px;
 }
 
@@ -55,21 +52,18 @@
 }
 
 .progressNumbers {
-  color: #000;
+  color: #433838;
   font-size: 14px;
 }
 
 .button {
   background-color: var(--orange-color);
-  border: none;
   border-radius: 20px;
   padding: 16px 30px;
   cursor: pointer;
   font-size: 20px;
-  color: #1e1e1e;
+  color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
   text-decoration: none;
-  box-sizing: border-box;
 }

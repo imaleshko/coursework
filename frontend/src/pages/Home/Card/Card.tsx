@@ -11,7 +11,6 @@ interface CardProps {
 
 export const Card = ({ title, author, balance, goal, slug }: CardProps) => {
   const percentage = Math.min((balance / goal) * 100, 100);
-  const width = `${percentage}%`;
 
   return (
     <div className={styles.card}>
@@ -24,7 +23,10 @@ export const Card = ({ title, author, balance, goal, slug }: CardProps) => {
           </p>
         </div>
         <div className={styles.progress}>
-          <div className={styles.progressFill} style={{ width: width }}>
+          <div
+            className={styles.progressFill}
+            style={{ width: `${percentage}%` }}
+          >
             <p className={styles.progressNumbers}>
               {goal > 0 ? `${balance}/${goal}` : `${balance}`}
             </p>

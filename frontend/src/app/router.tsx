@@ -2,16 +2,16 @@ import { createBrowserRouter, redirect } from "react-router";
 import { Layout } from "@/layout/Layout/Layout";
 import { Home } from "@/pages/Home/Home";
 import { Fundraising } from "@/pages/Fundraising/Fundraising";
-import { queryClient } from "@/api/queryClient.ts";
-import { fundraisingApi } from "@/api/fundraisingApi.ts";
+import { queryClient } from "./queryClient.ts";
+import { fundraisersApi } from "../api/fundraisersApi.ts";
 import Register from "@/pages/Auth/Register/Register.tsx";
 import Login from "@/pages/Auth/Login/Login.tsx";
 import Account from "@/pages/Account/Account.tsx";
 import Profile from "@/pages/Account/Profile/Profile.tsx";
 import { accountApi } from "@/api/accountApi.ts";
-import requireAuth from "@/router/requireAuth.ts";
+import requireAuth from "@/app/requireAuth.ts";
 import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
-import CreateFundraising from "../pages/Account/Fundraisers/CreateFundraising/CreateFundraising.tsx";
+import CreateFundraising from "@/pages/Account/Fundraisers/CreateFundraising/CreateFundraising.tsx";
 import Donations from "@/pages/Account/Donations/Donations.tsx";
 import EditFundraising from "@/pages/Account/Fundraisers/EditFundraising/EditFundraising.tsx";
 import AddUpdate from "@/pages/Account/Fundraisers/FundraisingUpdate/AddUpdate.tsx";
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
         loader: async () => {
           return await queryClient.ensureQueryData({
             queryKey: ["newest"],
-            queryFn: fundraisingApi.get5Newest,
+            queryFn: fundraisersApi.getNewest,
           });
         },
       },
@@ -59,7 +59,7 @@ export const router = createBrowserRouter([
           }
           return await queryClient.ensureQueryData({
             queryKey: ["fundraising", params.username, params.slug],
-            queryFn: () => fundraisingApi.getByUsernameAndSlug(username, slug),
+            queryFn: () => fundraisersApi.getByUsernameAndSlug(username, slug),
           });
         },
       },

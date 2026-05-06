@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { authApi, type RegisterRequest } from "@/api/authApi.ts";
 import { isAxiosError } from "axios";
-import { setAccessToken } from "@/api/api.ts";
+import { setAccessToken } from "../app/api.ts";
 
 const useRegister = () => {
   const navigate = useNavigate();

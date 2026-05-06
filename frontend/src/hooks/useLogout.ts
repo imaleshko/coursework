@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { authApi } from "@/api/authApi.ts";
-import { setAccessToken } from "@/api/api.ts";
-import { queryClient } from "@/api/queryClient.ts";
+import { setAccessToken } from "../app/api.ts";
+import { queryClient } from "../app/queryClient.ts";
 
 const useLogout = () => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
-import { api } from "@/api/api.ts";
+import { api } from "../app/api.ts";
 
-interface FundraisingCard {
+interface FundraiserCard {
   id: number;
   title: string;
   author: string;
@@ -34,9 +34,9 @@ export interface GetFundraisingResponse {
   endedAt: string;
 }
 
-export const fundraisingApi = {
-  get5Newest: async (): Promise<FundraisingCard[]> => {
-    const response = await api.get<FundraisingCard[]>("/fundraising/newest");
+export const fundraisersApi = {
+  getNewest: async (): Promise<FundraiserCard[]> => {
+    const response = await api.get<FundraiserCard[]>("/fundraising/newest");
     return response.data;
   },
 

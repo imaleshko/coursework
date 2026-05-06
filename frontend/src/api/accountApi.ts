@@ -1,4 +1,4 @@
-import { api, setAccessToken } from "@/api/api.ts";
+import { api, setAccessToken } from "../app/api.ts";
 
 export interface ChangeEmailRequest {
   email: string;
