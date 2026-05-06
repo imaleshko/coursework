@@ -1,7 +1,7 @@
 import styles from "./Fundraising.module.css";
 import { Link, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { fundraisersApi } from "../../api/fundraisersApi.ts";
+import { fundraisersApi } from "@/api/fundraisersApi.ts";
 import Carousel from "@/pages/Fundraising/Components/Carousel/Carousel.tsx";
 import Info from "@/pages/Fundraising/Components/Info/Info.tsx";
 import DonationForm from "@/pages/Fundraising/Components/DonationForm/DonationForm.tsx";

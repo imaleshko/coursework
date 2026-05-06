@@ -1,5 +1,5 @@
 import styles from "./Info.module.css";
-import type { GetFundraisingResponse } from "../../../../api/fundraisersApi.ts";
+import type { GetFundraisingResponse } from "@/api/fundraisersApi.ts";
 
 interface InfoProps {
   fundraising: GetFundraisingResponse;

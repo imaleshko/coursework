@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
-import { authApi } from "@/api/authApi.ts";
+import { authApi } from "../pages/Auth/authApi.ts";
 import { setAccessToken } from "../app/api.ts";
 import { queryClient } from "../app/queryClient.ts";
 

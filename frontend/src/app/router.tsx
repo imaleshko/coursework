@@ -3,13 +3,13 @@ import { Layout } from "@/layout/Layout/Layout";
 import { Home } from "@/pages/Home/Home";
 import { Fundraising } from "@/pages/Fundraising/Fundraising";
 import { queryClient } from "./queryClient.ts";
-import { fundraisersApi } from "../api/fundraisersApi.ts";
+import { fundraisersApi } from "@/api/fundraisersApi.ts";
 import Register from "@/pages/Auth/Register/Register.tsx";
 import Login from "@/pages/Auth/Login/Login.tsx";
 import Account from "@/pages/Account/Account.tsx";
 import Profile from "@/pages/Account/Profile/Profile.tsx";
 import { accountApi } from "@/api/accountApi.ts";
-import requireAuth from "@/app/requireAuth.ts";
+import { requireAuth } from "@/app/requireAuth.ts";
 import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
 import CreateFundraising from "@/pages/Account/Fundraisers/CreateFundraising/CreateFundraising.tsx";
 import Donations from "@/pages/Account/Donations/Donations.tsx";
@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
             throw redirect("/");
           }
           return await queryClient.ensureQueryData({
-            queryKey: ["fundraising", params.username, params.slug],
+            queryKey: ["fundraising", username, slug],
             queryFn: () => fundraisersApi.getByUsernameAndSlug(username, slug),
           });
         },

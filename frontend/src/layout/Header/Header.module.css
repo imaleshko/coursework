@@ -109,7 +109,7 @@
 .loginButton,
 .regButton {
   background: transparent;
-  color: #fff;
+  color: var(--white-color);
   padding: 10px 24px;
   border-radius: 20px;
   font-size: 16px;

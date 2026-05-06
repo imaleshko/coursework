@@ -1,4 +1,4 @@
-import { Logo } from "@/components/shared/Logo/Logo";
+import { Logo } from "../Logo/Logo";
 import styles from "./Header.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";

@@ -18,13 +18,13 @@
 }
 
 .formTitle {
-  color: white;
+  color: var(--white-color);
   font-size: 24px;
   margin-bottom: 30px;
 }
 
 .serverError {
-  color: #ff4d4f;
+  color: var(--error-red-color);
   margin-bottom: 20px;
   text-align: center;
   font-size: 16px;
@@ -50,7 +50,7 @@
 }
 
 .errorText {
-  color: #ff4d4f;
+  color: var(--error-red-color);
   font-size: 14px;
   margin-top: -10px;
   margin-left: 15px;
@@ -68,14 +68,13 @@
   margin-top: 10px;
 }
 
-.loginLink {
+.authSwitch {
   display: flex;
   gap: 8px;
-  color: white;
   font-size: 16px;
 }
 
-.loginLink a {
-  color: #4da6ff;
+.authSwitch a {
+  color: var(--link-color);
   text-decoration: none;
 }

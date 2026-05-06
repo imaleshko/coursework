@@ -12,5 +12,3 @@ export const requireAuth = async () => {
     throw redirect("/login");
   }
 };
-
-export default requireAuth;

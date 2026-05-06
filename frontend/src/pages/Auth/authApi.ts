@@ -1,4 +1,4 @@
-import { api } from "../app/api.ts";
+import { api } from "@/app/api.ts";
 
 export interface RegisterRequest {
   username: string;
@@ -11,7 +11,7 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface AuthResponse {
+interface AuthResponse {
   accessToken: string;
 }
 
