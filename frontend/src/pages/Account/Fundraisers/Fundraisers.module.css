@@ -22,17 +22,17 @@
 }
 
 .createButton {
-  background-color: rgb(67 113 152 / 0.69);
-  color: var(--text-grey-color);
   border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
+  padding: 12px 20px;
   font-weight: 500;
   cursor: pointer;
-}
-
-.createButton:hover {
-  background-color: rgb(54 82 104 / 0.69);
+  background-color: var(--orange-color);
+  border-radius: 30px;
+  font-size: 20px;
+  color: var(--white-color);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .cardsList {

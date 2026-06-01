@@ -13,6 +13,8 @@ export const setAccessToken = (token: string | null) => {
   accessToken = token;
 };
 
+let refreshPromise: Promise<string> | null = null;
+
 api.interceptors.request.use((config) => {
   if (accessToken) {
     config.headers.set("Authorization", `Bearer ${accessToken}`);
@@ -36,15 +38,20 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const response = await axios.post(
-          `${baseURL}/auth/refresh`,
-          {},
-          { withCredentials: true },
-        );
+        if (!refreshPromise) {
+          refreshPromise = axios
+            .post(`${baseURL}/auth/refresh`, {}, { withCredentials: true })
+            .then((response) => {
+              const newAccessToken = response.data.accessToken as string;
+              setAccessToken(newAccessToken);
+              return newAccessToken;
+            })
+            .finally(() => {
+              refreshPromise = null;
+            });
+        }
 
-        const newAccessToken = response.data.accessToken;
-        setAccessToken(newAccessToken);
-
+        const newAccessToken = await refreshPromise;
         originalRequest.headers.set(
           "Authorization",
           `Bearer ${newAccessToken}`,

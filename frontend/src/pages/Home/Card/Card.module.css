@@ -73,8 +73,8 @@
 
 .button {
   background-color: var(--orange-color);
-  border-radius: 20px;
-  padding: 16px 30px;
+  padding: 16px 40px;
+  border-radius: 30px;
   cursor: pointer;
   font-size: 20px;
   color: white;
