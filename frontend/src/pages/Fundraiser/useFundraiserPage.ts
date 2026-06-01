@@ -18,7 +18,7 @@ export const useFundraiserPage = (username: string, slug: string) => {
 
   const donationsQuery = useQuery({
     queryKey: ["fundraiser-donations", fundraiserId],
-    queryFn: () => fundraiserPageApi.getSuccessfulDonations(fundraiserId!),
+    queryFn: () => fundraiserPageApi.getCompletedDonations(fundraiserId!),
     enabled: fundraiserId != null,
   });
 

@@ -23,7 +23,7 @@ export const fundraiserPageApi = {
     return response.data;
   },
 
-  getSuccessfulDonations: async (fundraiserId: number): Promise<Donation[]> => {
+  getCompletedDonations: async (fundraiserId: number): Promise<Donation[]> => {
     const response = await api.get<Donation[]>(
       `/fundraisers/${fundraiserId}/donations`,
     );

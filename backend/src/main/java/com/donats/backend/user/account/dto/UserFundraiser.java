@@ -20,7 +20,7 @@ public record UserFundraiser(
 ) {
     public static UserFundraiser from(FundraiserEntity entity) {
         long totalDonations = entity.getDonations().stream()
-                .filter(donation -> donation.getStatus() == DonationStatus.SUCCESS)
+                .filter(donation -> donation.getStatus() == DonationStatus.COMPLETED)
                 .count();
 
         return new UserFundraiser(

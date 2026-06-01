@@ -34,6 +34,6 @@ public class FundraiserPageController {
 
     @GetMapping("/{fundraiserId}/donations")
     public ResponseEntity<List<Donation>> getDonations(@PathVariable Long fundraiserId) {
-        return ResponseEntity.ok(donationService.getSuccessfulDonations(fundraiserId));
+        return ResponseEntity.ok(donationService.getCompletedDonations(fundraiserId));
     }
 }

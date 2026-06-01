@@ -57,7 +57,7 @@ public class DonationService {
         donation.setMessage(request.message());
         donation.setFundraiser(fundraiser);
         donation.setUser(user);
-        donation.setStatus(DonationStatus.PENDING);
+        donation.setStatus(DonationStatus.INITIATED);
         donation.setOrderId(orderId);
 
         donationRepository.save(donation);
@@ -81,9 +81,9 @@ public class DonationService {
                 .orElseThrow(() -> new DonationCloseException("Донат не знайдено"));
 
         if ("success".equals(liqPayStatus)) {
-            if (donation.getStatus() != DonationStatus.SUCCESS) {
+            if (donation.getStatus() != DonationStatus.COMPLETED) {
                 donation.setAmount(amount);
-                donation.setStatus(DonationStatus.SUCCESS);
+                donation.setStatus(DonationStatus.COMPLETED);
 
                 FundraiserEntity fundraiser = donation.getFundraiser();
                 BigDecimal balanceAfterDonation = fundraiser.getBalance().add(amount);
@@ -96,18 +96,13 @@ public class DonationService {
                 fundraiserRepository.save(fundraiser);
                 donationRepository.save(donation);
             }
-        } else if ("error".equals(liqPayStatus) || "failure".equals(liqPayStatus) || "reversed".equals(liqPayStatus)) {
-            if (donation.getStatus() != DonationStatus.FAILED) {
-                donation.setStatus(DonationStatus.FAILED);
-                donationRepository.save(donation);
-            }
         }
     }
 
     @Transactional(readOnly = true)
-    public List<Donation> getSuccessfulDonations(Long fundraiserId) {
+    public List<Donation> getCompletedDonations(Long fundraiserId) {
         return donationRepository
-                .findAllByFundraiserIdAndStatusOrderByCreatedAtDesc(fundraiserId, DonationStatus.SUCCESS)
+                .findAllByFundraiserIdAndStatusOrderByCreatedAtDesc(fundraiserId, DonationStatus.COMPLETED)
                 .stream()
                 .map(Donation::from)
                 .toList();
