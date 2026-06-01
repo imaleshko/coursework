@@ -1,7 +1,5 @@
 package com.donats.backend.fundraiser.edit;
 
-import com.donats.backend.fundraiser.edit.dto.EditFundraiserRequest;
-import com.donats.backend.fundraiser.edit.dto.EditFundraiserResponse;
 import com.donats.backend.security.CustomUserDetails;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

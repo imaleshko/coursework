@@ -52,7 +52,7 @@ export interface CreateFundraiserRequest {
   title: string;
   slug: string;
   description: string;
-  goal?: number;
+  goal: number;
   imageUrls: string[];
   tags: string[];
 }
@@ -62,7 +62,7 @@ export interface EditFundraiserResponse {
   title: string;
   slug: string;
   description: string;
-  goal?: number;
+  goal: number;
   existingImagesUrls: string[];
   tags: string[];
 }
@@ -71,7 +71,7 @@ export interface EditFundraiserRequest {
   title: string;
   slug: string;
   description: string;
-  goal?: number;
+  goal: number;
   imageUrls: string[];
   tags: string[];
 }

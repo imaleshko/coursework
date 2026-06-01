@@ -10,7 +10,7 @@ export interface EditFundraiserFormData {
   title: string;
   slug: string;
   description: string;
-  goal?: number;
+  goal: number;
   retainedImages: string[];
   newImages: File[];
   tags: string[];

@@ -10,7 +10,7 @@ interface CreateFundraiserFormData {
   title: string;
   slug: string;
   description: string;
-  goal?: number;
+  goal: number;
   images: File[];
   tags: string[];
 }

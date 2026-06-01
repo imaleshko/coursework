@@ -26,7 +26,7 @@ export interface Fundraiser {
   slug: string;
   description: string;
   balance: number;
-  goal?: number;
+  goal: number;
   imageUrls: string[];
   authorUsername: string;
   authorAvatarUrl?: string;

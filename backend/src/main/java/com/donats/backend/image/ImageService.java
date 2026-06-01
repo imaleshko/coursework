@@ -27,8 +27,8 @@ public class ImageService {
                 try {
                     var uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
 
-                    String secureUrl = uploadResult.get("secure_url").toString();
-                    imageUrls.add(secureUrl);
+                    String url = uploadResult.get("secure_url").toString();
+                    imageUrls.add(url);
                 } catch (IOException e) {
                     throw new ImageUploadException("Помилка завантаження зображення");
                 }

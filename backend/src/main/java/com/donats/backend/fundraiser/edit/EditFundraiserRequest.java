@@ -1,9 +1,6 @@
-package com.donats.backend.fundraiser.edit.dto;
+package com.donats.backend.fundraiser.edit;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
@@ -21,6 +18,8 @@ public record EditFundraiserRequest(
         @NotBlank(message = "Опис обов'язковий")
         String description,
 
+        @NotNull(message = "Ціль збору є обов'язковою")
+        @Positive(message = "Ціль має бути більшою за нуль")
         BigDecimal goal,
 
         @NotEmpty(message = "Додайте хоча б одне зображення")

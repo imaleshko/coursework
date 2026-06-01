@@ -23,7 +23,7 @@ const CreateFundraiser = () => {
         title: data.title,
         slug: data.slug,
         description: data.description,
-        goal: data.goal ? Number(data.goal) : undefined,
+        goal: Number(data.goal),
         images: formLogic.newImages.map((img) => img.file),
         tags: formLogic.tags,
       },

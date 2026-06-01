@@ -1,4 +1,4 @@
-package com.donats.backend.fundraiser.edit.dto;
+package com.donats.backend.fundraiser.edit;
 
 import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.fundraiser.tag.TagEntity;

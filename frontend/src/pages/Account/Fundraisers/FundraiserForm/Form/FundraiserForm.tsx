@@ -100,7 +100,7 @@ export const FundraiserForm = ({
 
           <div className={styles.field}>
             <label htmlFor="slug" className={styles.label}>
-              Slug для посилання
+              Імʼя збору для посилання
             </label>
             <input
               id="slug"
@@ -153,7 +153,6 @@ export const FundraiserForm = ({
                 type="text"
                 className={styles.formInput}
                 value={tagInput}
-                placeholder="Додати свій тег..."
                 onChange={(e) => setTagInput(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
@@ -192,13 +191,12 @@ export const FundraiserForm = ({
 
           <div className={styles.field}>
             <label htmlFor="goal" className={styles.label}>
-              Фінансова ціль (опціонально)
+              Фінансова ціль
             </label>
             <input
               id="goal"
               name="goal"
               type="number"
-              min="10"
               className={styles.formInput}
               value={formData.goal}
               onChange={onFieldChange}

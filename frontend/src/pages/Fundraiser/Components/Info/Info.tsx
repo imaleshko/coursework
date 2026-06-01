@@ -7,9 +7,10 @@ interface InfoProps {
 }
 
 const Info = ({ fundraiser }: InfoProps) => {
-  const progressPercentage = fundraiser.goal
-    ? Math.min(Math.round((fundraiser.balance / fundraiser.goal) * 100), 100)
-    : 0;
+  const progressPercentage = Math.min(
+    Math.round((fundraiser.balance / fundraiser.goal) * 100),
+    100,
+  );
 
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("uk-UA");
@@ -43,7 +44,7 @@ const Info = ({ fundraiser }: InfoProps) => {
         <div className={styles.circle}>
           <span className={styles.percentageText}>{progressPercentage}%</span>
           <span>
-            {fundraiser.balance} / {fundraiser.goal ?? "∞"}
+            {fundraiser.balance} / {fundraiser.goal}
           </span>
         </div>
       </div>

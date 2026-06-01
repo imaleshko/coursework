@@ -28,9 +28,7 @@ export const Card = ({ title, author, balance, goal, slug }: CardProps) => {
             className={styles.progressFill}
             style={{ width: `${percentage}%` }}
           />
-          <p className={styles.progressNumbers}>
-            {goal > 0 ? `${balance}/${goal}` : `${balance}`}
-          </p>
+          <p className={styles.progressNumbers}>{`${balance} / ${goal}`}</p>
         </div>
       </div>
 

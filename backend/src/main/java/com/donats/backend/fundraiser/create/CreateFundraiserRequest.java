@@ -8,16 +8,17 @@ import java.util.List;
 import java.util.Set;
 
 public record CreateFundraiserRequest(
-        @NotBlank(message = "Назва не може бути порожньою")
+        @NotBlank(message = "Назва обов'язкова")
         String title,
 
         @NotBlank(message = "Slug обов'язковий")
-        @Pattern(regexp = "^[a-z0-9-]+$", message = "Slug може містити тільки малі латинські літери, цифри та дефіс")
+        @Pattern(regexp = "^[a-z0-9-]+$", message = "Тільки малі латинські літери, цифри та дефіс")
         String slug,
 
         @NotBlank(message = "Опис обов'язковий")
         String description,
 
+        @NotNull(message = "Ціль збору є обов'язковою")
         @Positive(message = "Ціль має бути більшою за нуль")
         BigDecimal goal,
 

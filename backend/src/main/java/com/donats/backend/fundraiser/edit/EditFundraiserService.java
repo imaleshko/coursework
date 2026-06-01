@@ -4,8 +4,6 @@ import com.donats.backend.exceptions.FundraiserNotFoundException;
 import com.donats.backend.exceptions.SlugAlreadyInUseException;
 import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.fundraiser.FundraiserRepository;
-import com.donats.backend.fundraiser.edit.dto.EditFundraiserRequest;
-import com.donats.backend.fundraiser.edit.dto.EditFundraiserResponse;
 import com.donats.backend.fundraiser.tag.TagEntity;
 import com.donats.backend.fundraiser.tag.TagService;
 import com.donats.backend.image.ImageService;

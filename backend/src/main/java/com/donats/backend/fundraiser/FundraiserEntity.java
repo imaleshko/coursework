@@ -28,7 +28,7 @@ public class FundraiserEntity {
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "goal")
+    @Column(name = "goal", nullable = false)
     private BigDecimal goal;
 
     @Column(name = "balance", nullable = false)
@@ -135,10 +135,6 @@ public class FundraiserEntity {
 
     public LocalDateTime getStartedAt() {
         return startedAt;
-    }
-
-    public void setStartedAt(LocalDateTime startedAt) {
-        this.startedAt = startedAt;
     }
 
     public LocalDateTime getClosedAt() {
