@@ -70,7 +70,7 @@ public class AccountController {
 
     @GetMapping("/donations")
     public ResponseEntity<List<UserDonation>> getUserDonations(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        List<UserDonation> donations = accountService.getUserDonations(userDetails.getId(), DonationStatus.SUCCESS);
+        List<UserDonation> donations = accountService.getUserDonations(userDetails.getId(), DonationStatus.COMPLETED);
 
         return ResponseEntity.ok(donations);
     }

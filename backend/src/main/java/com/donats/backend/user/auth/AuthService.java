@@ -37,8 +37,12 @@ public class AuthService {
 
     @Transactional
     public Tokens register(RegisterRequest request) {
-        if (userRepository.existsByEmailOrUsername(request.email(), request.username())) {
-            throw new UserAlreadyExistsException("Користувач з таким email або ім'ям вже існує");
+        if (userRepository.existsByEmail(request.email())) {
+            throw new UserAlreadyExistsException("Користувач з таким email вже існує");
+        }
+
+        if (userRepository.existsByUsername(request.username())) {
+            throw new UserAlreadyExistsException("Користувач з таким ім'ям вже існує");
         }
 
         UserEntity user = new UserEntity();
