@@ -20,6 +20,6 @@ export const useCreateUpdate = () => {
   return {
     createUpdate: mutation.mutate,
     isPending: mutation.isPending,
-    error: getApiErrorMessage(mutation.error, "Помилка створення апдейту"),
+    error: getApiErrorMessage(mutation.error, "Помилка додавання оновлення"),
   };
 };

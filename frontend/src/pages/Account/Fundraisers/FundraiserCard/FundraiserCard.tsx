@@ -82,7 +82,7 @@ const FundraiserCard = ({
             className={styles.button}
             onClick={() => onAddUpdate(fundraiser.id)}
           >
-            Додати апдейт
+            Додати оновлення
           </button>
           <button
             className={styles.button}

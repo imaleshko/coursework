@@ -33,7 +33,7 @@ export const Card = ({ title, author, balance, goal, slug }: CardProps) => {
       </div>
 
       <Link to={`/fundraiser/${author}/${slug}`} className={styles.button}>
-        Донат
+        Деталі
       </Link>
     </div>
   );

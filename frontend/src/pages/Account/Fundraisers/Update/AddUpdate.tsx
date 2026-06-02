@@ -16,7 +16,7 @@ const AddUpdate = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.title.trim()) newErrors.title = "Назва обов'язкова";
     if (!formData.message.trim())
-      newErrors.message = "Текст апдейту обов'язковий";
+      newErrors.message = "Текст оновлення обов'язковий";
     return newErrors;
   };
 
@@ -59,7 +59,7 @@ const AddUpdate = () => {
   return (
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <h2 className={styles.formTitle}>Додати апдейт до збору</h2>
+        <h2 className={styles.formTitle}>Додати оновлення до збору</h2>
 
         {serverError && (
           <p className={`${styles.errorText} ${styles.serverError}`}>
@@ -70,13 +70,12 @@ const AddUpdate = () => {
         <div className={styles.inputs}>
           <div className={styles.field}>
             <label htmlFor="title" className={styles.label}>
-              Заголовок апдейту
+              Заголовок оновлення
             </label>
             <input
               id="title"
               name="title"
               type="text"
-              placeholder="Введіть текст"
               className={styles.formInput}
               value={formData.title}
               onChange={handleFieldChange}
@@ -86,7 +85,7 @@ const AddUpdate = () => {
 
           <div className={styles.field}>
             <label htmlFor="message" className={styles.label}>
-              Текст апдейту
+              Текст оновлення
             </label>
             <div data-color-mode="dark" className={styles.editorWrapper}>
               <MDEditor

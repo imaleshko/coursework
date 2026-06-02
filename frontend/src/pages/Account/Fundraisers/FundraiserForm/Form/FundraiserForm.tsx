@@ -100,7 +100,7 @@ export const FundraiserForm = ({
 
           <div className={styles.field}>
             <label htmlFor="slug" className={styles.label}>
-              Імʼя збору для посилання
+              Імʼя збору для посилання (наприклад: /for-something)
             </label>
             <input
               id="slug"

@@ -6,7 +6,7 @@ public record CreateUpdateRequest(
         @NotBlank(message = "Назва обов'язкова")
         String title,
 
-        @NotBlank(message = "Текст апдейту обов'язковий")
+        @NotBlank(message = "Текст оновлення обов'язковий")
         String message
 ) {
 }
