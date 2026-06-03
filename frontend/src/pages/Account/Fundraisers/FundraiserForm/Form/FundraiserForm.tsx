@@ -225,9 +225,7 @@ export const FundraiserForm = ({
                 onAddFiles(e.dataTransfer?.files ?? null);
               }}
             >
-              <p className={styles.dropzoneText}>
-                Перетягніть фотографії або натисніть для вибору
-              </p>
+              <p className={styles.dropzoneText}>Виберіть фотографії</p>
               <input
                 id="images"
                 type="file"
