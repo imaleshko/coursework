@@ -74,3 +74,22 @@
   cursor: pointer;
   font-weight: 500;
 }
+
+.withdrawalForm {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.cardInput {
+  background-color: var(--grey-color);
+  border: none;
+  outline: none;
+  border-radius: 30px;
+  padding: 12px 24px;
+  box-sizing: border-box;
+  height: 48px;
+  flex-grow: 1;
+  font-size: 16px;
+}

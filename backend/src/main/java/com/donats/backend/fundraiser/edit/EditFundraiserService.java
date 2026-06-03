@@ -1,5 +1,6 @@
 package com.donats.backend.fundraiser.edit;
 
+import com.donats.backend.exceptions.ForbiddenException;
 import com.donats.backend.exceptions.FundraiserNotFoundException;
 import com.donats.backend.exceptions.SlugAlreadyInUseException;
 import com.donats.backend.fundraiser.FundraiserEntity;
@@ -38,6 +39,10 @@ public class EditFundraiserService {
     @Transactional
     public void editFundraiser(Long userId, Long fundraiserId, EditFundraiserRequest request) {
         FundraiserEntity fundraiser = getFundraiser(userId, fundraiserId);
+
+        if (!fundraiser.getDonations().isEmpty()) {
+            throw new ForbiddenException("Не можна редагувати збір після першої пожертви");
+        }
 
         if (!fundraiser.getSlug().equals(request.slug()) &&
                 fundraiserRepository.existsByUserIdAndSlug(userId, request.slug())) {

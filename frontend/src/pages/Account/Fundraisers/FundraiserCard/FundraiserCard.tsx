@@ -4,6 +4,7 @@ import type {
   FundraiserStatus,
   UserFundraiserResponse,
 } from "@/pages/Account/accountApi.ts";
+import { useState } from "react";
 
 interface FundraiserCardProps {
   fundraiser: UserFundraiserResponse;
@@ -29,6 +30,17 @@ const FundraiserCard = ({
       case "CLOSED":
         return "Закритий";
     }
+  };
+
+  const [withdrawal, setWithdrawal] = useState(false);
+  const [cardNumber, setCardNumber] = useState("");
+
+  const onWithdrawal = () => {
+    setWithdrawal(true);
+  };
+
+  const onCloseWithdrawal = () => {
+    setWithdrawal(false);
   };
 
   return (
@@ -84,18 +96,43 @@ const FundraiserCard = ({
           >
             Додати оновлення
           </button>
-          <button
-            className={styles.button}
-            onClick={() => onEdit(fundraiser.id)}
-          >
-            Редагувати
-          </button>
+          {fundraiser.totalDonationsCount === 0 && (
+            <button
+              className={styles.button}
+              onClick={() => onEdit(fundraiser.id)}
+            >
+              Редагувати
+            </button>
+          )}
           <button
             className={styles.closeButton}
             onClick={() => onClose(fundraiser.id)}
           >
             Закрити
           </button>
+        </div>
+      )}
+
+      {fundraiser.status === "CLOSED" && cardNumber === "" && (
+        <div className={styles.actions}>
+          {!withdrawal ? (
+            <button className={styles.button} onClick={onWithdrawal}>
+              Вивести кошти
+            </button>
+          ) : (
+            <div className={styles.withdrawalForm}>
+              <input
+                type="text"
+                className={styles.cardInput}
+                placeholder="0000 0000 0000 0000"
+                value={cardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
+              />
+              <button className={styles.button} onClick={onCloseWithdrawal}>
+                Подати заявку
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
