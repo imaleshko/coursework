@@ -28,7 +28,7 @@ const DonationForm = ({ fundraiserId, status }: DonationFormProps) => {
     isPending,
     error: serverError,
   } = useInitDonation({
-    onSuccessPayment: () => {
+    onPayment: () => {
       setFormValues({ amount: "", name: "", message: "" });
 
       void queryClient.invalidateQueries({

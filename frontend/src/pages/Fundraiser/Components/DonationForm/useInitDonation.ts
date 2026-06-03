@@ -27,10 +27,10 @@ declare global {
 }
 
 interface UseInitDonationProps {
-  onSuccessPayment?: () => void;
+  onPayment?: () => void;
 }
 
-export const useInitDonation = ({ onSuccessPayment }: UseInitDonationProps) => {
+export const useInitDonation = ({ onPayment }: UseInitDonationProps) => {
   const mutation = useMutation({
     mutationFn: (data: DonationInitRequest) => donationApi.initDonation(data),
     onSuccess: (response) => {
@@ -41,11 +41,8 @@ export const useInitDonation = ({ onSuccessPayment }: UseInitDonationProps) => {
           embedTo: "#liqpay_checkout",
           language: "uk",
           mode: "popup",
-        }).on("liqpay.callback", (data) => {
-          if (data.status === "success") {
-            console.log("успіх");
-            if (onSuccessPayment) onSuccessPayment();
-          }
+        }).on("liqpay.callback", () => {
+          if (onPayment) onPayment();
         });
       } else {
         throw new Error("Не вдалося розпочати донат");
